@@ -9,7 +9,7 @@ interface VASPContractFields {
   signingKey: string;
 }
 export default class VASPContract {
-  VASPContractArtifact: Contract;
+  private VASPContractArtifact: Contract;
 
   constructor(_provider: provider) {
     ZWeb3.initialize(_provider);

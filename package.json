@@ -13,6 +13,7 @@
   ],
   "scripts": {
     "build": "rm -rf pkg && pika build",
+    "doc": "typedoc",
     "format": "prettier --write '**/*.{ts,md,yml}' '!pkg/**'",
     "format:check": "prettier --check '**/*.{ts,md,yml}' '!pkg/**'",
     "lint": "eslint '{src,test}/**'",
@@ -34,6 +35,7 @@
     "jest-html-reporters": "^1.2.1",
     "prettier": "1.19.1",
     "ts-jest": "^25.2.1",
+    "typedoc": "^0.17.4",
     "typescript": "^3.8.3"
   },
   "eslintConfig": {
