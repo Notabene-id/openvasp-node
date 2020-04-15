@@ -1,23 +1,24 @@
-import { provider } from 'web3-core';
-import { ZWeb3, Contracts, Contract } from '@openzeppelin/upgrades';
+import { provider } from "web3-core";
+import { ZWeb3, Contracts, Contract } from "@openzeppelin/upgrades";
 
 interface VASPContractFields {
-  owner: string,
-  name: string,
-  channels: Array<string>,
-  handshakeKey: string,
-  signingKey: string,
+  owner: string;
+  name: string;
+  channels: Array<string>;
+  handshakeKey: string;
+  signingKey: string;
 }
 export default class VASPContract {
-
   VASPContractArtifact: Contract;
 
   constructor(_provider: provider) {
-    ZWeb3.initialize(_provider)
-    this.VASPContractArtifact = Contracts.getFromNodeModules('openvasp-contracts','VASP')
+    ZWeb3.initialize(_provider);
+    this.VASPContractArtifact = Contracts.getFromNodeModules(
+      "openvasp-contracts",
+      "VASP"
+    );
   }
 
-  
   async getAllFields(_address: string): Promise<VASPContractFields> {
     //TODO: I think all the queries can be done in parallel (Promise.all())
     return {
@@ -31,33 +32,31 @@ export default class VASPContract {
 
   async getOwner(_address: string): Promise<string> {
     const VASPContract = this.VASPContractArtifact.at(_address);
-    return (await VASPContract.methods.owner().call());
+    return await VASPContract.methods.owner().call();
   }
-
 
   async getName(_address: string): Promise<string> {
     const VASPContract = this.VASPContractArtifact.at(_address);
-    return (await VASPContract.methods.name().call());
+    return await VASPContract.methods.name().call();
   }
 
   async getChannels(_address: string): Promise<Array<string>> {
     const VASPContract = this.VASPContractArtifact.at(_address);
-    return await VASPContract.methods.channels(
-              0, 
-              await VASPContract.methods.channelsCount().call() 
-            ).call()
+    return await VASPContract.methods
+      .channels(0, await VASPContract.methods.channelsCount().call())
+      .call();
   }
 
   async getHandshakeKey(_address: string): Promise<string> {
     const VASPContract = this.VASPContractArtifact.at(_address);
-    return (await VASPContract.methods.handshakeKey().call());
+    return await VASPContract.methods.handshakeKey().call();
   }
 
   async getSigningKey(_address: string): Promise<string> {
     const VASPContract = this.VASPContractArtifact.at(_address);
-    return (await VASPContract.methods.signingKey().call());
+    return await VASPContract.methods.signingKey().call();
   }
-  
+
   /*
     const { streetName,
               buildingNumber,
