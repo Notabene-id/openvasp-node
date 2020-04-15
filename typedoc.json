@@ -1,7 +1,7 @@
 {
     "inputFiles": ["./src/*"],
     "mode": "file",
-    "out": "doc",
+    "out": "docs",
     "exclude": "test/*test.ts",
     "excludeExternals": true,
     "excludeNotExported": true,

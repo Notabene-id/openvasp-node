@@ -3,4 +3,4 @@ pkg/
 .DS_Store
 *.log
 reports/
-doc/
+docs/
