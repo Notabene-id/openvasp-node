@@ -30,8 +30,14 @@ Test
 $ npm test
 ```
 
-To publish:
+To publish to NPM:
 
 ```
 $ pika publish
+```
+
+To publish dosc:
+
+```
+$ npm run doc
 ```
