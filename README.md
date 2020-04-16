@@ -17,6 +17,18 @@ To install:
 $ npm i --save openvasp-client
 ```
 
+## Usage
+
+### Tool
+
+```javascript
+import { Tools } from 'openvasp-client'
+
+const vaspAddress = '0x36D706A02fE35C64Ba21cF7Ed51695FC8DD00E63'
+const vaspCode = Tools.addressToVaspCode(vaspAddress)
+
+```
+
 ## Development
 
 Instal dependencies
