@@ -103,7 +103,8 @@
     }
   },
   "lint-staged": {
-    "*.ts": "npm run lint",
-    "*.!pkg/**": "npm run format:check"
+    "{src,test}/**": "eslint",
+    "**/*.{ts,md,yml}": "prettier --write",
+    "!pkg/**": "prettier --write"
   }
 }
