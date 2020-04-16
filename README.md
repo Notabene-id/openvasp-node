@@ -2,19 +2,19 @@
 
 OpenVASP Typescript Library
 
-[![Build Status](https://github.com/notabene-id/openvasp-node/workflows/build/badge.svg)](https://github.com/notabene-id/openvasp-node/actions)
-[![License](https://img.shields.io/github/license/notabene-id/openvasp-node.svg?color=blue)](./LICENSE.md)
-![npm](https://img.shields.io/npm/v/openvasp)
-![GitHub last commit](https://img.shields.io/github/last-commit/notabene-id/openvasp-node)
+[![Build Status](https://github.com/notabene-id/openvasp-node-client/workflows/build/badge.svg)](https://github.com/notabene-id/openvasp-node-client/actions)
+[![License](https://img.shields.io/github/license/notabene-id/openvasp-node-client.svg?color=blue)](./LICENSE.md)
+![npm](https://img.shields.io/npm/v/openvasp-client)
+![GitHub last commit](https://img.shields.io/github/last-commit/notabene-id/openvasp-node-client)
 
-Documentation: https://notabene-id.github.io/openvasp-node/
+Documentation: https://notabene-id.github.io/openvasp-node-client/
 
 ## Getting OpenVASP Library
 
 To install:
 
 ```
-$ npm i --save openvasp
+$ npm i --save openvasp-client
 ```
 
 ## Development

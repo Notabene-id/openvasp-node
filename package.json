@@ -1,12 +1,12 @@
 {
-  "name": "openvasp",
-  "description": "OpenVASP Typescript Library",
+  "name": "openvasp-client",
+  "description": "OpenVASP Client Typescript Library",
   "version": "1.0.5",
   "author": "Andres Junge <andres@notabene.id>",
   "license": "MIT",
-  "homepage": "https://github.com/Notabene-id/openvasp-node#readme",
-  "bugs": "https://github.com/Notabene-id/openvasp-node/issues",
-  "repository": "github:Notabene-id/openvasp-node",
+  "homepage": "https://github.com/Notabene-id/openvasp-node-client#readme",
+  "bugs": "https://github.com/Notabene-id/openvasp-node-client/issues",
+  "repository": "github:Notabene-id/openvasp-node-client",
   "keywords": [
     "OpenVASP",
     "Notabene"
