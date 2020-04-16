@@ -9,7 +9,7 @@ OpenVASP Typescript Library
 
 Documentation: https://notabene-id.github.io/openvasp-node-client/
 
-## Getting OpenVASP Library
+## Getting OpenVASP Client Library
 
 To install:
 
