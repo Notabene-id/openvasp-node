@@ -103,7 +103,7 @@
     }
   },
   "lint-staged": {
-    "*.js": "npm run lint",
+    "*.ts": "npm run lint",
     "*.!pkg/**": "npm run format:check"
   }
 }
