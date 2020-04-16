@@ -1,4 +1,4 @@
-# OpenVASP
+# OpenVASP Client
 
 OpenVASP Typescript Library
 
