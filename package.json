@@ -1,7 +1,7 @@
 {
   "name": "openvasp-client",
   "description": "OpenVASP Client Typescript Library",
-  "version": "0.1.0",
+  "version": "1.0.5",
   "author": "Andres Junge <andres@notabene.id>",
   "license": "MIT",
   "homepage": "https://github.com/Notabene-id/openvasp-node-client#readme",
