@@ -103,7 +103,7 @@
     }
   },
   "lint-staged": {
-    "*.js": "eslint --cache --fix",
-    "*.!pkg/**": "prettier --write"
+    "*.js": "npm run lint",
+    "*.!pkg/**": "npm run format:check"
   }
 }
