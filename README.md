@@ -57,7 +57,7 @@ $ pika publish
 To publish dosc:
 
 ```
-$ npm run doc
+$ npm run docs
 ```
 
 ## Contributing
