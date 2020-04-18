@@ -6,7 +6,7 @@ export default class Tools {
    * @returns VASP Code corresponding to the address
    *
    */
-  addressToVaspCode(_address: string): string {
+  static addressToVaspCode(_address: string): string {
     // TODO: Check address
     return _address.substring(34).toLowerCase();
   }

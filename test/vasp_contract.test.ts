@@ -1,6 +1,7 @@
 import VASPContract from "../src/vasp_contract";
 
 import { web3, accounts, contract } from "@openzeppelin/test-environment";
+import { Tools } from "../src";
 const [owner, administrator] = accounts;
 
 /**
@@ -99,6 +100,7 @@ describe("VASPContract test", () => {
     it("should work", async () => {
       const res = await sut.getAllFields(vaspAddress);
       expect(res).toEqual({
+        code: Tools.addressToVaspCode(vaspAddress),
         owner,
         ...vaspData,
       });

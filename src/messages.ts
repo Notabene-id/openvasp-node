@@ -471,3 +471,14 @@ interface BeneficiaryInformation {
   /** VAAN. Assigned by VASP. Hex(96-bit) */
   vaan: string;
 }
+
+export {
+  MessageType,
+  SessionRequest,
+  SessionReply,
+  TransferRequest,
+  TransferReply,
+  TransferDispatch,
+  TransferConfirmation,
+  Termination,
+};
