@@ -31,6 +31,8 @@ describe("WhisperTransport test", () => {
     ...originator,
     handshakeKeyPrivate:
       "0x1c63d518dc301bece0ebde5fba8b5fc95f8d161eb2bc2f533d9112cd9bb64191",
+    signingKeyPrivate:
+      "0x1c63d518dc301bece0ebde5fba8b5fc95f8d161eb2bc2f533d9112cd9bb64191",
   };
 
   const beneficiary: VASP = {
