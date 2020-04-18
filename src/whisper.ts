@@ -5,7 +5,7 @@ import { provider } from "web3-core";
 import { setIntervalAsync } from "set-interval-async/dynamic";
 
 interface CallbackFunction {
-  (error: null | Error, message?: string): void;
+  (error: null | Error, message?: string): void | Promise<void>;
 }
 
 export default class WhisperTransport {

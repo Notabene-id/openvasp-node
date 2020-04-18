@@ -62,16 +62,9 @@ describe("WhisperTransport test", () => {
     sig: "0xfakesig",
   };
 
-  let filterId: string;
-
   beforeAll(() => {
     web3 = new Web3("http://localhost:8545");
     sut = new WhisperTransport(web3.currentProvider);
-  });
-
-  afterAll(async () => {
-    console.log("delete filterID: " + filterId);
-    await web3.shh.deleteMessageFilter(filterId);
   });
 
   it("should be defined", () => {
@@ -89,11 +82,12 @@ describe("WhisperTransport test", () => {
 
   describe("waitForSessionRequest", () => {
     it("should receive session request", async done => {
-      filterId = await sut.waitForSessionRequest(
+      const filterId = await sut.waitForSessionRequest(
         originatorPrivate,
-        (err, mesg) => {
+        async (err, mesg) => {
           expect(err).toBeNull();
           expect(mesg).toEqual(sessionRequest);
+          await web3.shh.deleteMessageFilter(filterId);
           done();
         }
       );
