@@ -60,8 +60,8 @@
 	<div class="row">
 		<div class="col-8 col-content">
 			<div class="tsd-panel tsd-typography">
-				<a href="#openvasp" id="openvasp" style="color: inherit; text-decoration: none;">
-					<h1>OpenVASP</h1>
+				<a href="#openvasp-client" id="openvasp-client" style="color: inherit; text-decoration: none;">
+					<h1>OpenVASP Client</h1>
 				</a>
 				<p>OpenVASP Typescript Library</p>
 				<p><a href="https://github.com/notabene-id/openvasp-node-client/actions"><img src="https://github.com/notabene-id/openvasp-node-client/workflows/build/badge.svg" alt="Build Status"></a>
@@ -69,11 +69,21 @@
 					<img src="https://img.shields.io/npm/v/openvasp-client" alt="npm">
 				<img src="https://img.shields.io/github/last-commit/notabene-id/openvasp-node-client" alt="GitHub last commit"></p>
 				<p>Documentation: <a href="https://notabene-id.github.io/openvasp-node-client/">https://notabene-id.github.io/openvasp-node-client/</a></p>
-				<a href="#getting-openvasp-library" id="getting-openvasp-library" style="color: inherit; text-decoration: none;">
-					<h2>Getting OpenVASP Library</h2>
+				<a href="#getting-openvasp-client-library" id="getting-openvasp-client-library" style="color: inherit; text-decoration: none;">
+					<h2>Getting OpenVASP Client Library</h2>
 				</a>
 				<p>To install:</p>
 				<pre><code>$ npm i <span class="hljs-comment">--save openvasp-client</span></code></pre>
+				<a href="#usage" id="usage" style="color: inherit; text-decoration: none;">
+					<h2>Usage</h2>
+				</a>
+				<a href="#tool" id="tool" style="color: inherit; text-decoration: none;">
+					<h3>Tool</h3>
+				</a>
+				<pre><code class="language-javascript"><span class="hljs-keyword">import</span> { Tools } <span class="hljs-keyword">from</span> <span class="hljs-string">"openvasp-client"</span>;
+
+<span class="hljs-keyword">const</span> vaspAddress = <span class="hljs-string">"0x36D706A02fE35C64Ba21cF7Ed51695FC8DD00E63"</span>;
+<span class="hljs-keyword">const</span> vaspCode = Tools.addressToVaspCode(vaspAddress);</code></pre>
 				<a href="#development" id="development" style="color: inherit; text-decoration: none;">
 					<h2>Development</h2>
 				</a>
@@ -82,7 +92,21 @@
 				<pre><code>$ npm <span class="hljs-keyword">run</span><span class="bash"> build</span></code></pre><p>Test</p>
 				<pre><code><span class="hljs-meta">$</span><span class="bash"> npm <span class="hljs-built_in">test</span></span></code></pre><p>To publish to NPM:</p>
 				<pre><code><span class="hljs-variable">$ </span>pika publish</code></pre><p>To publish dosc:</p>
-				<pre><code>$ npm <span class="hljs-keyword">run</span><span class="bash"> doc</span></code></pre>
+				<pre><code>$ npm <span class="hljs-keyword">run</span><span class="bash"> docs</span></code></pre>
+				<a href="#contributing" id="contributing" style="color: inherit; text-decoration: none;">
+					<h2>Contributing</h2>
+				</a>
+				<p>Contributions are welcome!</p>
+				<p>Want to file a bug, request a feature or contribute some code?</p>
+				<ul>
+					<li>Check out the <a href="./CODE_OF_CONDUCT.md">Code of Conduct</a></li>
+					<li>Check that there is no existing <a href="https://github.com/Notabene-id/openvasp-node-client/issues">issue</a> corresponding to your bug or feature</li>
+					<li>Before implementing a new feature, discuss your changes in an issue first!</li>
+				</ul>
+				<a href="#license" id="license" style="color: inherit; text-decoration: none;">
+					<h2>License</h2>
+				</a>
+				<p><a href="./LICENSE.md">MIT</a> © Notabene</p>
 			</div>
 		</div>
 		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
@@ -95,14 +119,92 @@
 			</nav>
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
+					<li class=" tsd-kind-enum">
+						<a href="enums/juridicalpersonidtype.html" class="tsd-kind-icon">Juridical<wbr>Person<wbr>IdType</a>
+					</li>
+					<li class=" tsd-kind-enum">
+						<a href="enums/messagetype.html" class="tsd-kind-icon">Message<wbr>Type</a>
+					</li>
+					<li class=" tsd-kind-enum">
+						<a href="enums/naturalpersonidtype.html" class="tsd-kind-icon">Natural<wbr>Person<wbr>IdType</a>
+					</li>
+					<li class=" tsd-kind-enum">
+						<a href="enums/sessionreplycode.html" class="tsd-kind-icon">Session<wbr>Reply<wbr>Code</a>
+					</li>
+					<li class=" tsd-kind-enum">
+						<a href="enums/terminationcodes.html" class="tsd-kind-icon">Termination<wbr>Codes</a>
+					</li>
+					<li class=" tsd-kind-enum">
+						<a href="enums/transferconfirmationcodes.html" class="tsd-kind-icon">Transfer<wbr>Confirmation<wbr>Codes</a>
+					</li>
+					<li class=" tsd-kind-enum">
+						<a href="enums/transferreplycode.html" class="tsd-kind-icon">Transfer<wbr>Reply<wbr>Code</a>
+					</li>
+					<li class=" tsd-kind-enum">
+						<a href="enums/transfertype.html" class="tsd-kind-icon">Transfer<wbr>Type</a>
+					</li>
+					<li class=" tsd-kind-enum">
+						<a href="enums/virtualassettype.html" class="tsd-kind-icon">Virtual<wbr>Asset<wbr>Type</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/messagefactory.html" class="tsd-kind-icon">Message<wbr>Factory</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/openvasp.html" class="tsd-kind-icon">OpenVASP</a>
+					</li>
 					<li class=" tsd-kind-class">
 						<a href="classes/tools.html" class="tsd-kind-icon">Tools</a>
 					</li>
 					<li class=" tsd-kind-class">
 						<a href="classes/vaspcontract.html" class="tsd-kind-icon">VASPContract</a>
 					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/whispertransport.html" class="tsd-kind-icon">Whisper<wbr>Transport</a>
+					</li>
 					<li class=" tsd-kind-interface">
-						<a href="interfaces/vaspcontractfields.html" class="tsd-kind-icon">VASPContract<wbr>Fields</a>
+						<a href="interfaces/beneficiaryinformation.html" class="tsd-kind-icon">Beneficiary<wbr>Information</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/callbackfunction.html" class="tsd-kind-icon">Callback<wbr>Function</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/openvaspmessage.html" class="tsd-kind-icon">OpenVASPMessage</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/originatorinformation.html" class="tsd-kind-icon">Originator<wbr>Information</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/postaladdress.html" class="tsd-kind-icon">Postal<wbr>Address</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/privatevasp.html" class="tsd-kind-icon">PrivateVASP</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/sessionreply.html" class="tsd-kind-icon">Session<wbr>Reply</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/sessionrequest.html" class="tsd-kind-icon">Session<wbr>Request</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/termination.html" class="tsd-kind-icon">Termination</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/transferconfirmation.html" class="tsd-kind-icon">Transfer<wbr>Confirmation</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/transferdispatch.html" class="tsd-kind-icon">Transfer<wbr>Dispatch</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/transferreply.html" class="tsd-kind-icon">Transfer<wbr>Reply</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/transferrequest.html" class="tsd-kind-icon">Transfer<wbr>Request</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/vasp.html" class="tsd-kind-icon">VASP</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/vaspinformation.html" class="tsd-kind-icon">VASPInformation</a>
 					</li>
 				</ul>
 			</nav>
@@ -115,10 +217,14 @@
 		<div class="tsd-legend-group">
 			<ul class="tsd-legend">
 				<li class="tsd-kind-constructor tsd-parent-kind-class"><span class="tsd-kind-icon">Constructor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-class"><span class="tsd-kind-icon">Property</span></li>
 				<li class="tsd-kind-method tsd-parent-kind-class"><span class="tsd-kind-icon">Method</span></li>
 			</ul>
 			<ul class="tsd-legend">
 				<li class="tsd-kind-property tsd-parent-kind-interface"><span class="tsd-kind-icon">Property</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static method</span></li>
 			</ul>
 		</div>
 	</div>

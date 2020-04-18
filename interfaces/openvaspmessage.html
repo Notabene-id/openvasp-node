@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>Tools | openvasp-client</title>
+	<title>OpenVASPMessage | openvasp-client</title>
 	<meta name="description" content="Documentation for openvasp-client">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -52,10 +52,10 @@
 					<a href="../globals.html">Globals</a>
 				</li>
 				<li>
-					<a href="tools.html">Tools</a>
+					<a href="openvaspmessage.html">OpenVASPMessage</a>
 				</li>
 			</ul>
-			<h1>Class Tools</h1>
+			<h1>Interface OpenVASPMessage</h1>
 		</div>
 	</div>
 </header>
@@ -66,7 +66,30 @@
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<span class="target">Tools</span>
+						<span class="target">OpenVASPMessage</span>
+						<ul class="tsd-hierarchy">
+							<li>
+								<a href="sessionrequest.html" class="tsd-signature-type">SessionRequest</a>
+							</li>
+							<li>
+								<a href="sessionreply.html" class="tsd-signature-type">SessionReply</a>
+							</li>
+							<li>
+								<a href="transferrequest.html" class="tsd-signature-type">TransferRequest</a>
+							</li>
+							<li>
+								<a href="transferreply.html" class="tsd-signature-type">TransferReply</a>
+							</li>
+							<li>
+								<a href="transferdispatch.html" class="tsd-signature-type">TransferDispatch</a>
+							</li>
+							<li>
+								<a href="transferconfirmation.html" class="tsd-signature-type">TransferConfirmation</a>
+							</li>
+							<li>
+								<a href="termination.html" class="tsd-signature-type">Termination</a>
+							</li>
+						</ul>
 					</li>
 				</ul>
 			</section>
@@ -75,47 +98,62 @@
 				<section class="tsd-panel tsd-index-panel">
 					<div class="tsd-index-content">
 						<section class="tsd-index-section ">
-							<h3>Methods</h3>
+							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="tools.html#addresstovaspcode" class="tsd-kind-icon">address<wbr>ToVasp<wbr>Code</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="openvaspmessage.html#comment" class="tsd-kind-icon">comment</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="openvaspmessage.html#sig" class="tsd-kind-icon">sig</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="openvaspmessage.html#vasp" class="tsd-kind-icon">vasp</a></li>
 							</ul>
 						</section>
 					</div>
 				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
-				<h2>Methods</h2>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-static">
-					<a name="addresstovaspcode" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagStatic">Static</span> address<wbr>ToVasp<wbr>Code</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-static">
-						<li class="tsd-signature tsd-kind-icon">address<wbr>ToVasp<wbr>Code<span class="tsd-signature-symbol">(</span>_address<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.com/Notabene-id/openvasp-node-client/blob/cfc56f1/src/tools.ts#L9">tools.ts:9</a></li>
-								</ul>
-							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>Converts VASP Smart Contract addres to code.</p>
-								</div>
-							</div>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>_address: <span class="tsd-signature-type">string</span></h5>
-									<div class="tsd-comment tsd-typography">
-										<p>VASP Smart Contract address to be converted.</p>
-									</div>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
-							<p>VASP Code corresponding to the address</p>
-						</li>
-					</ul>
+				<h2>Properties</h2>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="comment" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> comment</h3>
+					<div class="tsd-signature tsd-kind-icon">comment<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/Notabene-id/openvasp-node-client/blob/cfc56f1/src/messages.ts#L6">messages.ts:6</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Comment</p>
+						</div>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="sig" class="tsd-anchor"></a>
+					<h3>sig</h3>
+					<div class="tsd-signature tsd-kind-icon">sig<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/Notabene-id/openvasp-node-client/blob/cfc56f1/src/messages.ts#L10">messages.ts:10</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Message signed with actor’s private signing key</p>
+						</div>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="vasp" class="tsd-anchor"></a>
+					<h3>vasp</h3>
+					<div class="tsd-signature tsd-kind-icon">vasp<span class="tsd-signature-symbol">:</span> <a href="vaspinformation.html" class="tsd-signature-type">VASPInformation</a></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/Notabene-id/openvasp-node-client/blob/cfc56f1/src/messages.ts#L8">messages.ts:8</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>VASP information incl. public signing key</p>
+						</div>
+					</div>
 				</section>
 			</section>
 		</div>
@@ -157,73 +195,79 @@
 						<a href="../enums/virtualassettype.html" class="tsd-kind-icon">Virtual<wbr>Asset<wbr>Type</a>
 					</li>
 					<li class=" tsd-kind-class">
-						<a href="messagefactory.html" class="tsd-kind-icon">Message<wbr>Factory</a>
+						<a href="../classes/messagefactory.html" class="tsd-kind-icon">Message<wbr>Factory</a>
 					</li>
 					<li class=" tsd-kind-class">
-						<a href="openvasp.html" class="tsd-kind-icon">OpenVASP</a>
+						<a href="../classes/openvasp.html" class="tsd-kind-icon">OpenVASP</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="../classes/tools.html" class="tsd-kind-icon">Tools</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="../classes/vaspcontract.html" class="tsd-kind-icon">VASPContract</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="../classes/whispertransport.html" class="tsd-kind-icon">Whisper<wbr>Transport</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="beneficiaryinformation.html" class="tsd-kind-icon">Beneficiary<wbr>Information</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="callbackfunction.html" class="tsd-kind-icon">Callback<wbr>Function</a>
 					</li>
 				</ul>
 				<ul class="current">
-					<li class="current tsd-kind-class">
-						<a href="tools.html" class="tsd-kind-icon">Tools</a>
+					<li class="current tsd-kind-interface">
+						<a href="openvaspmessage.html" class="tsd-kind-icon">OpenVASPMessage</a>
 						<ul>
-							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static">
-								<a href="tools.html#addresstovaspcode" class="tsd-kind-icon">address<wbr>ToVasp<wbr>Code</a>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="openvaspmessage.html#comment" class="tsd-kind-icon">comment</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="openvaspmessage.html#sig" class="tsd-kind-icon">sig</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="openvaspmessage.html#vasp" class="tsd-kind-icon">vasp</a>
 							</li>
 						</ul>
 					</li>
 				</ul>
 				<ul class="after-current">
-					<li class=" tsd-kind-class">
-						<a href="vaspcontract.html" class="tsd-kind-icon">VASPContract</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="whispertransport.html" class="tsd-kind-icon">Whisper<wbr>Transport</a>
+					<li class=" tsd-kind-interface">
+						<a href="originatorinformation.html" class="tsd-kind-icon">Originator<wbr>Information</a>
 					</li>
 					<li class=" tsd-kind-interface">
-						<a href="../interfaces/beneficiaryinformation.html" class="tsd-kind-icon">Beneficiary<wbr>Information</a>
+						<a href="postaladdress.html" class="tsd-kind-icon">Postal<wbr>Address</a>
 					</li>
 					<li class=" tsd-kind-interface">
-						<a href="../interfaces/callbackfunction.html" class="tsd-kind-icon">Callback<wbr>Function</a>
+						<a href="privatevasp.html" class="tsd-kind-icon">PrivateVASP</a>
 					</li>
 					<li class=" tsd-kind-interface">
-						<a href="../interfaces/openvaspmessage.html" class="tsd-kind-icon">OpenVASPMessage</a>
+						<a href="sessionreply.html" class="tsd-kind-icon">Session<wbr>Reply</a>
 					</li>
 					<li class=" tsd-kind-interface">
-						<a href="../interfaces/originatorinformation.html" class="tsd-kind-icon">Originator<wbr>Information</a>
+						<a href="sessionrequest.html" class="tsd-kind-icon">Session<wbr>Request</a>
 					</li>
 					<li class=" tsd-kind-interface">
-						<a href="../interfaces/postaladdress.html" class="tsd-kind-icon">Postal<wbr>Address</a>
+						<a href="termination.html" class="tsd-kind-icon">Termination</a>
 					</li>
 					<li class=" tsd-kind-interface">
-						<a href="../interfaces/privatevasp.html" class="tsd-kind-icon">PrivateVASP</a>
+						<a href="transferconfirmation.html" class="tsd-kind-icon">Transfer<wbr>Confirmation</a>
 					</li>
 					<li class=" tsd-kind-interface">
-						<a href="../interfaces/sessionreply.html" class="tsd-kind-icon">Session<wbr>Reply</a>
+						<a href="transferdispatch.html" class="tsd-kind-icon">Transfer<wbr>Dispatch</a>
 					</li>
 					<li class=" tsd-kind-interface">
-						<a href="../interfaces/sessionrequest.html" class="tsd-kind-icon">Session<wbr>Request</a>
+						<a href="transferreply.html" class="tsd-kind-icon">Transfer<wbr>Reply</a>
 					</li>
 					<li class=" tsd-kind-interface">
-						<a href="../interfaces/termination.html" class="tsd-kind-icon">Termination</a>
+						<a href="transferrequest.html" class="tsd-kind-icon">Transfer<wbr>Request</a>
 					</li>
 					<li class=" tsd-kind-interface">
-						<a href="../interfaces/transferconfirmation.html" class="tsd-kind-icon">Transfer<wbr>Confirmation</a>
+						<a href="vasp.html" class="tsd-kind-icon">VASP</a>
 					</li>
 					<li class=" tsd-kind-interface">
-						<a href="../interfaces/transferdispatch.html" class="tsd-kind-icon">Transfer<wbr>Dispatch</a>
-					</li>
-					<li class=" tsd-kind-interface">
-						<a href="../interfaces/transferreply.html" class="tsd-kind-icon">Transfer<wbr>Reply</a>
-					</li>
-					<li class=" tsd-kind-interface">
-						<a href="../interfaces/transferrequest.html" class="tsd-kind-icon">Transfer<wbr>Request</a>
-					</li>
-					<li class=" tsd-kind-interface">
-						<a href="../interfaces/vasp.html" class="tsd-kind-icon">VASP</a>
-					</li>
-					<li class=" tsd-kind-interface">
-						<a href="../interfaces/vaspinformation.html" class="tsd-kind-icon">VASPInformation</a>
+						<a href="vaspinformation.html" class="tsd-kind-icon">VASPInformation</a>
 					</li>
 				</ul>
 			</nav>

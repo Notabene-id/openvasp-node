@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>Tools | openvasp-client</title>
+	<title>VirtualAssetType | openvasp-client</title>
 	<meta name="description" content="Documentation for openvasp-client">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -52,70 +52,51 @@
 					<a href="../globals.html">Globals</a>
 				</li>
 				<li>
-					<a href="tools.html">Tools</a>
+					<a href="virtualassettype.html">VirtualAssetType</a>
 				</li>
 			</ul>
-			<h1>Class Tools</h1>
+			<h1>Enumeration VirtualAssetType</h1>
 		</div>
 	</div>
 </header>
 <div class="container container-main">
 	<div class="row">
 		<div class="col-8 col-content">
-			<section class="tsd-panel tsd-hierarchy">
-				<h3>Hierarchy</h3>
-				<ul class="tsd-hierarchy">
-					<li>
-						<span class="target">Tools</span>
-					</li>
-				</ul>
-			</section>
 			<section class="tsd-panel-group tsd-index-group">
 				<h2>Index</h2>
 				<section class="tsd-panel tsd-index-panel">
 					<div class="tsd-index-content">
 						<section class="tsd-index-section ">
-							<h3>Methods</h3>
+							<h3>Enumeration members</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="tools.html#addresstovaspcode" class="tsd-kind-icon">address<wbr>ToVasp<wbr>Code</a></li>
+								<li class="tsd-kind-enum-member tsd-parent-kind-enum"><a href="virtualassettype.html#bitcoin" class="tsd-kind-icon">Bitcoin</a></li>
+								<li class="tsd-kind-enum-member tsd-parent-kind-enum"><a href="virtualassettype.html#ethereum" class="tsd-kind-icon">Ethereum</a></li>
 							</ul>
 						</section>
 					</div>
 				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
-				<h2>Methods</h2>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-static">
-					<a name="addresstovaspcode" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagStatic">Static</span> address<wbr>ToVasp<wbr>Code</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-static">
-						<li class="tsd-signature tsd-kind-icon">address<wbr>ToVasp<wbr>Code<span class="tsd-signature-symbol">(</span>_address<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.com/Notabene-id/openvasp-node-client/blob/cfc56f1/src/tools.ts#L9">tools.ts:9</a></li>
-								</ul>
-							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>Converts VASP Smart Contract addres to code.</p>
-								</div>
-							</div>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>_address: <span class="tsd-signature-type">string</span></h5>
-									<div class="tsd-comment tsd-typography">
-										<p>VASP Smart Contract address to be converted.</p>
-									</div>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
-							<p>VASP Code corresponding to the address</p>
-						</li>
-					</ul>
+				<h2>Enumeration members</h2>
+				<section class="tsd-panel tsd-member tsd-kind-enum-member tsd-parent-kind-enum">
+					<a name="bitcoin" class="tsd-anchor"></a>
+					<h3>Bitcoin</h3>
+					<div class="tsd-signature tsd-kind-icon">Bitcoin<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol"> = &quot;BTC&quot;</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/Notabene-id/openvasp-node-client/blob/cfc56f1/src/messages.ts#L130">messages.ts:130</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-enum-member tsd-parent-kind-enum">
+					<a name="ethereum" class="tsd-anchor"></a>
+					<h3>Ethereum</h3>
+					<div class="tsd-signature tsd-kind-icon">Ethereum<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol"> = &quot;ETH&quot;</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/Notabene-id/openvasp-node-client/blob/cfc56f1/src/messages.ts#L131">messages.ts:131</a></li>
+						</ul>
+					</aside>
 				</section>
 			</section>
 		</div>
@@ -130,55 +111,58 @@
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
 					<li class=" tsd-kind-enum">
-						<a href="../enums/juridicalpersonidtype.html" class="tsd-kind-icon">Juridical<wbr>Person<wbr>IdType</a>
+						<a href="juridicalpersonidtype.html" class="tsd-kind-icon">Juridical<wbr>Person<wbr>IdType</a>
 					</li>
 					<li class=" tsd-kind-enum">
-						<a href="../enums/messagetype.html" class="tsd-kind-icon">Message<wbr>Type</a>
+						<a href="messagetype.html" class="tsd-kind-icon">Message<wbr>Type</a>
 					</li>
 					<li class=" tsd-kind-enum">
-						<a href="../enums/naturalpersonidtype.html" class="tsd-kind-icon">Natural<wbr>Person<wbr>IdType</a>
+						<a href="naturalpersonidtype.html" class="tsd-kind-icon">Natural<wbr>Person<wbr>IdType</a>
 					</li>
 					<li class=" tsd-kind-enum">
-						<a href="../enums/sessionreplycode.html" class="tsd-kind-icon">Session<wbr>Reply<wbr>Code</a>
+						<a href="sessionreplycode.html" class="tsd-kind-icon">Session<wbr>Reply<wbr>Code</a>
 					</li>
 					<li class=" tsd-kind-enum">
-						<a href="../enums/terminationcodes.html" class="tsd-kind-icon">Termination<wbr>Codes</a>
+						<a href="terminationcodes.html" class="tsd-kind-icon">Termination<wbr>Codes</a>
 					</li>
 					<li class=" tsd-kind-enum">
-						<a href="../enums/transferconfirmationcodes.html" class="tsd-kind-icon">Transfer<wbr>Confirmation<wbr>Codes</a>
+						<a href="transferconfirmationcodes.html" class="tsd-kind-icon">Transfer<wbr>Confirmation<wbr>Codes</a>
 					</li>
 					<li class=" tsd-kind-enum">
-						<a href="../enums/transferreplycode.html" class="tsd-kind-icon">Transfer<wbr>Reply<wbr>Code</a>
+						<a href="transferreplycode.html" class="tsd-kind-icon">Transfer<wbr>Reply<wbr>Code</a>
 					</li>
 					<li class=" tsd-kind-enum">
-						<a href="../enums/transfertype.html" class="tsd-kind-icon">Transfer<wbr>Type</a>
-					</li>
-					<li class=" tsd-kind-enum">
-						<a href="../enums/virtualassettype.html" class="tsd-kind-icon">Virtual<wbr>Asset<wbr>Type</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="messagefactory.html" class="tsd-kind-icon">Message<wbr>Factory</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="openvasp.html" class="tsd-kind-icon">OpenVASP</a>
+						<a href="transfertype.html" class="tsd-kind-icon">Transfer<wbr>Type</a>
 					</li>
 				</ul>
 				<ul class="current">
-					<li class="current tsd-kind-class">
-						<a href="tools.html" class="tsd-kind-icon">Tools</a>
+					<li class="current tsd-kind-enum">
+						<a href="virtualassettype.html" class="tsd-kind-icon">Virtual<wbr>Asset<wbr>Type</a>
 						<ul>
-							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static">
-								<a href="tools.html#addresstovaspcode" class="tsd-kind-icon">address<wbr>ToVasp<wbr>Code</a>
+							<li class=" tsd-kind-enum-member tsd-parent-kind-enum">
+								<a href="virtualassettype.html#bitcoin" class="tsd-kind-icon">Bitcoin</a>
+							</li>
+							<li class=" tsd-kind-enum-member tsd-parent-kind-enum">
+								<a href="virtualassettype.html#ethereum" class="tsd-kind-icon">Ethereum</a>
 							</li>
 						</ul>
 					</li>
 				</ul>
 				<ul class="after-current">
 					<li class=" tsd-kind-class">
-						<a href="vaspcontract.html" class="tsd-kind-icon">VASPContract</a>
+						<a href="../classes/messagefactory.html" class="tsd-kind-icon">Message<wbr>Factory</a>
 					</li>
 					<li class=" tsd-kind-class">
-						<a href="whispertransport.html" class="tsd-kind-icon">Whisper<wbr>Transport</a>
+						<a href="../classes/openvasp.html" class="tsd-kind-icon">OpenVASP</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="../classes/tools.html" class="tsd-kind-icon">Tools</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="../classes/vaspcontract.html" class="tsd-kind-icon">VASPContract</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="../classes/whispertransport.html" class="tsd-kind-icon">Whisper<wbr>Transport</a>
 					</li>
 					<li class=" tsd-kind-interface">
 						<a href="../interfaces/beneficiaryinformation.html" class="tsd-kind-icon">Beneficiary<wbr>Information</a>
