@@ -1,3 +1,6 @@
+import { v4 as uuidv4 } from "uuid";
+import { PrivateVASP } from ".";
+
 interface OpenVASPMessage {
   /** Comment */
   comment?: string;
@@ -472,13 +475,78 @@ interface BeneficiaryInformation {
   vaan: string;
 }
 
+class MessageFactory {
+  static createSessionRequest(_originatorVASP: PrivateVASP): SessionRequest {
+    const msgid = uuidv4().replace("-", ""); //Hex(128bit);
+    const session = uuidv4().replace("-", ""); //Hex(128bit);
+    const topica = "0x" + uuidv4().substring(0, 8); //Hex(64bit);
+
+    const ecdhpk = "0x"; //
+    const sig = "0xfakesig"; //TODO Sign?
+
+    const sessionRequest: SessionRequest = {
+      msg: {
+        type: MessageType.SessionRequest,
+        msgid,
+        session,
+        code: "1",
+      },
+      handshake: {
+        topica,
+        ecdhpk,
+      },
+      vasp: {
+        name: _originatorVASP.name,
+        id: _originatorVASP.address,
+        pk: _originatorVASP.signingKey,
+        address: _originatorVASP.postalAddress,
+      },
+      sig,
+    };
+    return sessionRequest;
+  }
+
+  static createSessionReply(
+    session: string,
+    code: SessionReplyCode,
+    _beneficiaryVASP: PrivateVASP
+  ): SessionReply {
+    const msgid = uuidv4().replace("-", ""); //Hex(128bit);
+    const topicb = "0x" + uuidv4().substring(0, 8); //Hex(64bit);
+    const sig = "0xfakesig"; //TODO Sign?
+
+    const sessionReply: SessionReply = {
+      msg: {
+        type: MessageType.SessionReply,
+        msgid,
+        session,
+        code,
+      },
+      handshake: {
+        topicb,
+      },
+      vasp: {
+        name: _beneficiaryVASP.name,
+        id: _beneficiaryVASP.address,
+        pk: _beneficiaryVASP.signingKey,
+        address: _beneficiaryVASP.postalAddress,
+      },
+      sig,
+    };
+
+    return sessionReply;
+  }
+}
+
 export {
   MessageType,
   SessionRequest,
   SessionReply,
+  SessionReplyCode,
   TransferRequest,
   TransferReply,
   TransferDispatch,
   TransferConfirmation,
   Termination,
+  MessageFactory,
 };

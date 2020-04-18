@@ -11,6 +11,7 @@ describe("WhisperTransport test", () => {
   let web3: Web3;
 
   const originator: VASP = {
+    address: "0x000000000000089abcdef",
     code: "89abcdef",
     name: "FakeOriVASP",
     owner: "0xfakeOwner0",
@@ -19,6 +20,11 @@ describe("WhisperTransport test", () => {
       "0x040b56fd6ac6647192760467fcc29ef05db21c622fe3f6e82eacbdcfa34c6ef003370c3a01918151c187b9978b6e35cb22e13450d8a7eafe31b3295551161e9f75",
     signingKey:
       "0x040b56fd6ac6647192760467fcc29ef05db21c622fe3f6e82eacbdcfa34c6ef003370c3a01918151c187b9978b6e35cb22e13450d8a7eafe31b3295551161e9f75",
+    postalAddress: {
+      country: "",
+      postcode: "",
+      town: "",
+    },
   };
 
   const originatorPrivate: PrivateVASP = {
@@ -28,6 +34,7 @@ describe("WhisperTransport test", () => {
   };
 
   const beneficiary: VASP = {
+    address: "0x000000000000089abcdef",
     code: "89abcdef",
     name: "FakeBenVASP",
     owner: "0xfakeOwner1",
@@ -36,6 +43,11 @@ describe("WhisperTransport test", () => {
       "0x04a5d1e687a485dc654fd4641c3893108b4393addfca83e25f6cd0156e990180dd079cea5551a1e74e1edb318192e0f2dd00ff5598fa4f8780a49549a3c1f49773",
     signingKey:
       "0x04a5d1e687a485dc654fd4641c3893108b4393addfca83e25f6cd0156e990180dd079cea5551a1e74e1edb318192e0f2dd00ff5598fa4f8780a49549a3c1f49773",
+    postalAddress: {
+      country: "",
+      postcode: "",
+      town: "",
+    },
   };
 
   const sessionRequest: SessionRequest = {
@@ -75,7 +87,6 @@ describe("WhisperTransport test", () => {
     it("should work", async done => {
       const res = await sut.sendSessionRequest(beneficiary, sessionRequest);
       expect(res).toBeDefined();
-      //expect(res).toEqual({});
       done();
     });
   });

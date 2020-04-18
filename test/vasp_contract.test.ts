@@ -15,6 +15,11 @@ describe("VASPContract test", () => {
     channels: ["8"],
     handshakeKey: "0xfakeHS",
     signingKey: "0xfakeSK",
+    postalAddress: {
+      country: "",
+      postcode: "",
+      town: "",
+    },
   };
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -100,6 +105,7 @@ describe("VASPContract test", () => {
     it("should work", async () => {
       const res = await sut.getAllFields(vaspAddress);
       expect(res).toEqual({
+        address: vaspAddress,
         code: Tools.addressToVaspCode(vaspAddress),
         owner,
         ...vaspData,

@@ -1,12 +1,8 @@
-import { PrivateVASP, VASP } from ".";
+import { PrivateVASP, VASP, CallbackFunction } from ".";
 import { SessionRequest } from "./messages";
 import Web3 from "web3";
 import { provider } from "web3-core";
 import { setIntervalAsync } from "set-interval-async/dynamic";
-
-interface CallbackFunction {
-  (error: null | Error, message?: string): void | Promise<void>;
-}
 
 export default class WhisperTransport {
   web3: Web3;
@@ -16,24 +12,17 @@ export default class WhisperTransport {
     this.web3 = web3;
   }
 
-  /**
-   * Wait for Session Requests
-   */
-  waitForSessionRequest = async (
-    originator: PrivateVASP,
+  private async waitForMessage(
+    filter: any,
     cb: CallbackFunction
-  ): Promise<string> => {
-    const originatorPrivateKeyId = await this.web3.shh.addPrivateKey(
-      originator.handshakeKeyPrivate || ""
-    );
-
-    //Polls for messages
-    const filter = {
-      privateKeyID: originatorPrivateKeyId,
-      ttl: 20,
-      topics: ["0x" + originator.code],
-      //minPow: 0.8,
-    };
+  ): Promise<string> {
+    /*
+    filter={
+        ...filter,
+        ttl: 20,
+        minPow: 0.8
+    }
+    */
 
     const filterId = await this.web3.shh.newMessageFilter(filter);
 
@@ -51,17 +40,58 @@ export default class WhisperTransport {
     }, 500);
 
     return filterId;
-  };
+  }
+
+  /**
+   * Wait for Session Requests
+   */
+  async waitForSessionRequest(
+    originator: PrivateVASP,
+    cb: CallbackFunction
+  ): Promise<string> {
+    const originatorPrivateKeyId = await this.web3.shh.addPrivateKey(
+      originator.handshakeKeyPrivate
+    );
+
+    const filter = {
+      privateKeyID: originatorPrivateKeyId,
+      topics: ["0x" + originator.code],
+    };
+
+    return this.waitForMessage(filter, cb);
+  }
+
+  /**
+   * Wait for Topic Message
+   *
+   * @param topic
+   * @param sharedKey
+   * @param cb
+   */
+  async waitForTopicMessage(
+    topic: string,
+    sharedKey: string,
+    cb: CallbackFunction
+  ): Promise<string> {
+    const sharedKeyId = await this.web3.shh.addSymKey(sharedKey);
+
+    const filter = {
+      symKeyID: sharedKeyId,
+      topics: [topic],
+    };
+
+    return this.waitForMessage(filter, cb);
+  }
 
   /**
    * Send Session Request Message.
    *
    * @returns Promise<string>: Hash of message
    */
-  sendSessionRequest = async (
+  async sendSessionRequest(
     beneficiary: VASP,
     sessionRequestMsg: SessionRequest
-  ): Promise<string> => {
+  ): Promise<string> {
     //TODO: Check if VASP.channels, support whisper
 
     // encrypts using the beneficiary VASP handshake key
@@ -73,5 +103,22 @@ export default class WhisperTransport {
       powTime: 3,
       powTarget: 0.5,
     });
-  };
+  }
+
+  async sendToTopic(
+    topic: string,
+    sharedKey: string,
+    message: string
+  ): Promise<string> {
+    const sharedKeyId = await this.web3.shh.addSymKey(sharedKey);
+
+    return await this.web3.shh.post({
+      symKeyID: sharedKeyId,
+      ttl: 10,
+      topic: "0x" + topic,
+      payload: this.web3.utils.asciiToHex(message),
+      powTime: 3,
+      powTarget: 0.5,
+    });
+  }
 }
