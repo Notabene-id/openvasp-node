@@ -18,9 +18,9 @@ export default class WhisperTransport {
   ): Promise<string> {
     /*
     filter={
-        ...filter,
         ttl: 20,
-        minPow: 0.8
+        minPow: 0.8,
+        ...filter,
     }
     */
 
@@ -44,6 +44,10 @@ export default class WhisperTransport {
 
   /**
    * Wait for Session Requests
+   *
+   * @param originator VASP waiting for session request
+   * @param cb Function to call when SessionRequest message arrives
+   * @returns waitId. Needed to finish listening.
    */
   async waitForSessionRequest(
     originator: PrivateVASP,
@@ -64,9 +68,10 @@ export default class WhisperTransport {
   /**
    * Wait for Topic Message
    *
-   * @param topic
-   * @param sharedKey
-   * @param cb
+   * @param topic Topic to listen to
+   * @param sharedKey Shared key previously agreed
+   * @param cb Function to call when message arrives
+   * @returns waitId. Needed to finish listening.
    */
   async waitForTopicMessage(
     topic: string,
@@ -86,7 +91,9 @@ export default class WhisperTransport {
   /**
    * Send Session Request Message.
    *
-   * @returns Promise<string>: Hash of message
+   * @param beneficiary BeneficiaryVASP destination of the message
+   * @param sessionRequestMsg SessionRequest message to send
+   * @returns Hash of message
    */
   async sendSessionRequest(
     beneficiary: VASP,
@@ -105,6 +112,14 @@ export default class WhisperTransport {
     });
   }
 
+  /**
+   * Send message to specific topic
+   *
+   * @param topic Topic where to send message
+   * @param sharedKey Shared key previously agreed
+   * @param message Message to send
+   * @returns hash
+   */
   async sendToTopic(
     topic: string,
     sharedKey: string,
@@ -120,5 +135,21 @@ export default class WhisperTransport {
       powTime: 3,
       powTarget: 0.5,
     });
+  }
+
+  /**
+   * Generate Whisper Keypairs
+   *
+   * The Tools.generateKeyPaid does the same but in pure JS. No Whisper node query.
+   */
+  async newKeyPair(): Promise<{ publicKey: string; privateKey: string }> {
+    const keyId = await this.web3.shh.newKeyPair();
+
+    const publicKey = await this.web3.shh.getPublicKey(keyId);
+    const privateKey = await this.web3.shh.getPrivateKey(keyId);
+
+    await this.web3.shh.deleteKeyPair(keyId);
+
+    return { publicKey, privateKey };
   }
 }

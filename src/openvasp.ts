@@ -4,6 +4,7 @@ import {
   PrivateVASP,
   WhisperTransport,
   CallbackFunction,
+  Tools,
 } from ".";
 import {
   MessageFactory,
@@ -27,6 +28,12 @@ export class OpenVASP {
     this.whisperTransport = new WhisperTransport(_whisperProvider);
   }
 
+  /**
+   * Check MyVASP data against data stored on the contract
+   *
+   * @param fix Fix MyVASP data with contract data?
+   * @returns Array of errors.
+   */
   async checkMyVASP(fix: boolean): Promise<Array<string>> {
     //Get MyVASP data from smart contract
     const myVASPdata = await this.vaspContract.getAllFields(
@@ -42,8 +49,11 @@ export class OpenVASP {
       }
     }
 
-    //TODO. Derive publicKey from privateKey
-    if (this.myVASP.handshakeKeyPrivate != myVASPdata.handshakeKey) {
+    //Derive publicKey from privateKey
+    const handshakeKeyPublic = Tools.publicFromPrivateKey(
+      this.myVASP.handshakeKeyPrivate
+    );
+    if (handshakeKeyPublic != myVASPdata.handshakeKey) {
       errors.push("HandshakeKeyPrivate does not derive HandshakeKey");
     }
 
@@ -70,8 +80,20 @@ export class OpenVASP {
     //SessionRequest Msg
     const sessionRequest = MessageFactory.createSessionRequest(this.myVASP);
 
-    //Shared key ? (don't know how to create it. Derived from ecdhpk?
-    const sharedKey = sessionRequest.handshake.ecdhpk;
+    //Create ephemereal keys
+    const { privateKey, publicKey } = Tools.generateKeyPair();
+
+    //Create ECDH Shared key
+    const sharedKey = Tools.deriveSharedKey(
+      benificiaryVASP.handshakeKey,
+      privateKey
+    );
+
+    //Send publicKey to Beneficiary so they can create the same shared key
+    sessionRequest.handshake.ecdhpk = publicKey;
+
+    //TODO: Sign message. Sign what?
+    sessionRequest.sig = "??";
 
     // Listen to session reply
     const topicAwaitId = await this.whisperTransport.waitForTopicMessage(
@@ -107,6 +129,60 @@ export class OpenVASP {
   }
 
   /**
+   * Creates a handler for a session Request.
+   * The handler authenticates the OriginatorVASP and sends a SessionReply.
+   * Set the callback for the Topic messages (Transfer Requests)
+   *
+   * @param cb
+   */
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  handleSessionRequest(cb: any) {
+    return async (
+      err: CallbackFunction,
+      sessionRequest: SessionRequest
+    ): Promise<void> => {
+      if (!err) {
+        const errors: Array<string> = [];
+
+        const originatorVASP = sessionRequest.vasp;
+        //Get MyVASP data from smart contract
+
+        try {
+          const originatorVASPsmartContract = await this.vaspContract.getAllFields(
+            originatorVASP.id
+          );
+
+          //Authenticate originatorVASP (check sig with signingKey in Smart Contract)
+          //Check if publicKey match
+          if (originatorVASP.pk != originatorVASPsmartContract.signingKey) {
+            errors.push("Key in contract don't match key in request");
+          }
+
+          //TODO: Check signature
+          //sessionRequest.sig
+          //originatorVASP.pk / originatorVASPsmartContract.signingKey
+
+          //TODO: Check if VASP is "trusted"
+        } catch (err) {
+          errors.push("Can't authenticate Originator VASP");
+          errors.push(err.message);
+        }
+
+        let replyCode: SessionReplyCode;
+        if (errors.length == 0) {
+          replyCode = SessionReplyCode.SessionAccepted;
+        } else {
+          replyCode =
+            SessionReplyCode.SessionDeclinedOriginatorVASPCouldNotBeAuthenticated;
+        }
+
+        await this.sessionReply(sessionRequest, replyCode, cb);
+      }
+      return;
+    };
+  }
+
+  /**
    * Send a Session Reply
    *
    * @param sessionRequest Request to be replied
@@ -124,8 +200,11 @@ export class OpenVASP {
       sessionReplyCode,
       this.myVASP
     );
-    //Shared key ? (don't know how to create it. Derived from ecdhpk?
-    const sharedKey = sessionRequest.handshake.ecdhpk;
+    //Create ECDH Shared key
+    const sharedKey = Tools.deriveSharedKey(
+      sessionRequest.handshake.ecdhpk,
+      this.myVASP.signingKeyPrivate
+    );
 
     let topicBwaitId;
 

@@ -481,9 +481,6 @@ class MessageFactory {
     const session = uuidv4().replace("-", ""); //Hex(128bit);
     const topica = "0x" + uuidv4().substring(0, 8); //Hex(64bit);
 
-    const ecdhpk = "0x"; //
-    const sig = "0xfakesig"; //TODO Sign?
-
     const sessionRequest: SessionRequest = {
       msg: {
         type: MessageType.SessionRequest,
@@ -493,7 +490,7 @@ class MessageFactory {
       },
       handshake: {
         topica,
-        ecdhpk,
+        ecdhpk: "___MSSING___",
       },
       vasp: {
         name: _originatorVASP.name,
@@ -501,7 +498,7 @@ class MessageFactory {
         pk: _originatorVASP.signingKey,
         address: _originatorVASP.postalAddress,
       },
-      sig,
+      sig: "___MSSING___",
     };
     return sessionRequest;
   }
@@ -513,6 +510,7 @@ class MessageFactory {
   ): SessionReply {
     const msgid = uuidv4().replace("-", ""); //Hex(128bit);
     const topicb = "0x" + uuidv4().substring(0, 8); //Hex(64bit);
+
     const sig = "0xfakesig"; //TODO Sign?
 
     const sessionReply: SessionReply = {
