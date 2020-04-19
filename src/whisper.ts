@@ -2,7 +2,11 @@ import { PrivateVASP, VASP, CallbackFunction } from ".";
 import { SessionRequest } from "./messages";
 import Web3 from "web3";
 import { provider } from "web3-core";
-import { setIntervalAsync } from "set-interval-async/dynamic";
+import {
+  setIntervalAsync,
+  SetIntervalAsyncTimer,
+  clearIntervalAsync,
+} from "set-interval-async/dynamic";
 
 export default class WhisperTransport {
   web3: Web3;
@@ -15,7 +19,7 @@ export default class WhisperTransport {
   private async waitForMessage(
     filter: any,
     cb: CallbackFunction
-  ): Promise<string> {
+  ): Promise<{ filterId: string; intevalId: SetIntervalAsyncTimer }> {
     /*
     filter={
         ttl: 20,
@@ -27,7 +31,7 @@ export default class WhisperTransport {
     const filterId = await this.web3.shh.newMessageFilter(filter);
 
     //Polls every half second for msg.
-    setIntervalAsync(async () => {
+    const intevalId = setIntervalAsync(async () => {
       try {
         const messages = await this.web3.shh.getFilterMessages(filterId);
         for (const msg of messages) {
@@ -39,7 +43,7 @@ export default class WhisperTransport {
       }
     }, 500);
 
-    return filterId;
+    return { filterId, intevalId };
   }
 
   /**
@@ -52,7 +56,7 @@ export default class WhisperTransport {
   async waitForSessionRequest(
     originator: PrivateVASP,
     cb: CallbackFunction
-  ): Promise<string> {
+  ): Promise<{ filterId: string; intevalId: SetIntervalAsyncTimer }> {
     const originatorPrivateKeyId = await this.web3.shh.addPrivateKey(
       originator.handshakeKeyPrivate
     );
@@ -77,7 +81,7 @@ export default class WhisperTransport {
     topic: string,
     sharedKey: string,
     cb: CallbackFunction
-  ): Promise<string> {
+  ): Promise<{ filterId: string; intevalId: SetIntervalAsyncTimer }> {
     const sharedKeyId = await this.web3.shh.addSymKey(sharedKey);
 
     const filter = {
@@ -86,6 +90,20 @@ export default class WhisperTransport {
     };
 
     return this.waitForMessage(filter, cb);
+  }
+
+  /**
+   * Stop waiting for messages
+   * @param ids
+   */
+  async stopWaiting(ids: {
+    filterId: string;
+    intevalId: SetIntervalAsyncTimer;
+  }): Promise<void> {
+    //Stop cicle
+    await clearIntervalAsync(ids.intevalId);
+    //Remove filter
+    await this.web3.shh.deleteMessageFilter(ids.filterId);
   }
 
   /**

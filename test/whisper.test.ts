@@ -86,7 +86,7 @@ describe("WhisperTransport test", () => {
   });
 
   describe("sendSessionRequest", () => {
-    it("should work", async done => {
+    it.skip("should work", async done => {
       const res = await sut.sendSessionRequest(beneficiary, sessionRequest);
       expect(res).toBeDefined();
       done();
@@ -94,7 +94,7 @@ describe("WhisperTransport test", () => {
   });
 
   describe("waitForSessionRequest", () => {
-    it("should receive session request", async done => {
+    it.skip("should receive session request", async done => {
       const filterId = await sut.waitForSessionRequest(
         originatorPrivate,
         async (err, mesg) => {
