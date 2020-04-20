@@ -12,9 +12,11 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node }}
-
       - run: npm install
       - run: npm run format:check
       - run: npm run lint
       - run: npm run test
+      - uses: codecov/codecov-action@v1
+        with:
+          file: ./reports/coverage
       - run: npm run build

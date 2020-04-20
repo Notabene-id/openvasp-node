@@ -1,10 +1,9 @@
-import { PrivateVASP, VASP, CallbackFunction } from ".";
+import { PrivateVASP, VASP, CallbackFunction, WaitId } from ".";
 import { SessionRequest } from "./messages";
 import Web3 from "web3";
 import { provider } from "web3-core";
 import {
   setIntervalAsync,
-  SetIntervalAsyncTimer,
   clearIntervalAsync,
 } from "set-interval-async/dynamic";
 
@@ -19,7 +18,7 @@ export default class WhisperTransport {
   private async waitForMessage(
     filter: any,
     cb: CallbackFunction
-  ): Promise<{ filterId: string; intevalId: SetIntervalAsyncTimer }> {
+  ): Promise<WaitId> {
     /*
     filter={
         ttl: 20,
@@ -56,7 +55,7 @@ export default class WhisperTransport {
   async waitForSessionRequest(
     originator: PrivateVASP,
     cb: CallbackFunction
-  ): Promise<{ filterId: string; intevalId: SetIntervalAsyncTimer }> {
+  ): Promise<WaitId> {
     const originatorPrivateKeyId = await this.web3.shh.addPrivateKey(
       originator.handshakeKeyPrivate
     );
@@ -81,7 +80,7 @@ export default class WhisperTransport {
     topic: string,
     sharedKey: string,
     cb: CallbackFunction
-  ): Promise<{ filterId: string; intevalId: SetIntervalAsyncTimer }> {
+  ): Promise<WaitId> {
     const sharedKeyId = await this.web3.shh.addSymKey(sharedKey);
 
     const filter = {
@@ -96,10 +95,7 @@ export default class WhisperTransport {
    * Stop waiting for messages
    * @param ids
    */
-  async stopWaiting(ids: {
-    filterId: string;
-    intevalId: SetIntervalAsyncTimer;
-  }): Promise<void> {
+  async stopWaiting(ids: WaitId): Promise<void> {
     //Stop cicle
     await clearIntervalAsync(ids.intevalId);
     //Remove filter

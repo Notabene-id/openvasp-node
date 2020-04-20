@@ -95,12 +95,12 @@ describe("WhisperTransport test", () => {
 
   describe("waitForSessionRequest", () => {
     it.skip("should receive session request", async done => {
-      const filterId = await sut.waitForSessionRequest(
+      const waitId = await sut.waitForSessionRequest(
         originatorPrivate,
         async (err, mesg) => {
           expect(err).toBeNull();
           expect(mesg).toEqual(sessionRequest);
-          await web3.shh.deleteMessageFilter(filterId);
+          await sut.stopWaiting(waitId);
           done();
         }
       );

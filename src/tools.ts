@@ -15,6 +15,27 @@ export default class Tools {
   }
 
   /**
+   * Checks is VAAN is well formed
+   *
+   * @param _vaan
+   */
+  static checkVaan(_vaan: string): void {
+    if (_vaan.length != 24) throw new Error("invalid length");
+    //TODO: Check if hex string
+    //TODO: CheckSum8 Modulo 256
+    return;
+  }
+
+  /**
+   * Gets the VASP Code from the VAAN (first 4 bytes)
+   *
+   * @param _vaan
+   */
+  static vaspCodeFromVaan(_vaan: string): string {
+    return _vaan.substr(0, 8);
+  }
+
+  /**
    * Generate public and private key
    *
    */

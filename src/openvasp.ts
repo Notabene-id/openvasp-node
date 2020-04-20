@@ -5,6 +5,7 @@ import {
   WhisperTransport,
   CallbackFunction,
   Tools,
+  WaitId,
 } from ".";
 import {
   MessageFactory,
@@ -69,7 +70,7 @@ export class OpenVASP {
   async sessionRequest(
     _beneficiaryVASPAddress: string,
     topicAcallback: CallbackFunction
-  ): Promise<{ sessionRequest: SessionRequest; topicAwaitId: string }> {
+  ): Promise<{ sessionRequest: SessionRequest; topicAwaitId: WaitId }> {
     //Get BeneficiaryVASP data from smart contract
     const benificiaryVASP = await this.vaspContract.getAllFields(
       _beneficiaryVASPAddress
@@ -118,7 +119,7 @@ export class OpenVASP {
    */
   async waitForSessionRequest(
     requestCallback: CallbackFunction
-  ): Promise<string> {
+  ): Promise<WaitId> {
     //Wait for Session Request
     const sessionRequestWaitId = await this.whisperTransport.waitForSessionRequest(
       this.myVASP,
@@ -193,7 +194,7 @@ export class OpenVASP {
     sessionRequest: SessionRequest,
     sessionReplyCode: SessionReplyCode,
     topicBcallback: CallbackFunction
-  ): Promise<{ sessionReply: SessionReply; topicBwaitId: string | undefined }> {
+  ): Promise<{ sessionReply: SessionReply; topicBwaitId: WaitId | undefined }> {
     //SessionReply Msg
     const sessionReply = MessageFactory.createSessionReply(
       sessionRequest.msg.session,

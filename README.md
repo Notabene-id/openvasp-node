@@ -6,6 +6,7 @@ OpenVASP Typescript Library
 [![License](https://img.shields.io/github/license/notabene-id/openvasp-node-client.svg?color=blue)](./LICENSE.md)
 ![npm](https://img.shields.io/npm/v/openvasp-client)
 ![GitHub last commit](https://img.shields.io/github/last-commit/notabene-id/openvasp-node-client)
+[![codecov](https://codecov.io/gh/Notabene-id/openvasp-node-client/branch/master/graph/badge.svg)](https://codecov.io/gh/Notabene-id/openvasp-node-client)
 
 Documentation: https://notabene-id.github.io/openvasp-node-client/
 
