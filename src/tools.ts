@@ -47,8 +47,8 @@ export default class Tools {
 
     const pubKey = secp256k1.publicKeyCreate(privKey, false);
 
-    const privateKey = Buffer.from(privKey).toString("hex");
-    const publicKey = Buffer.from(pubKey).toString("hex");
+    const privateKey = "0x" + Buffer.from(privKey).toString("hex");
+    const publicKey = "0x" + Buffer.from(pubKey).toString("hex");
 
     return { privateKey, publicKey };
   }
@@ -63,7 +63,7 @@ export default class Tools {
     const privKey = Uint8Array.from(Buffer.from(privateKey, "hex"));
 
     const pubKey = secp256k1.publicKeyCreate(privKey, false);
-    const publicKey = Buffer.from(pubKey).toString("hex");
+    const publicKey = "0x" + Buffer.from(pubKey).toString("hex");
 
     return publicKey;
   }
@@ -83,6 +83,6 @@ export default class Tools {
 
     // get X point of ecdh
     const ecdhPointX = secp256k1.ecdh(pubKey, privKey);
-    return Buffer.from(ecdhPointX).toString("hex");
+    return "0x" + Buffer.from(ecdhPointX).toString("hex");
   }
 }

@@ -21,12 +21,12 @@ describe("Tools", () => {
 
     it("should work", () => {
       const res = Tools.deriveSharedKey(pubKey, privKey);
-      expect(res).toEqual(sharedKey);
+      expect(res).toEqual("0x" + sharedKey);
     });
 
     it("should work with 0x", () => {
       const res = Tools.deriveSharedKey("0x" + pubKey, "0x" + privKey);
-      expect(res).toEqual(sharedKey);
+      expect(res).toEqual("0x" + sharedKey);
     });
 
     it("should cross work", () => {
@@ -43,10 +43,11 @@ describe("Tools", () => {
     it("should work", done => {
       const res = Tools.generateKeyPair();
       expect(res.privateKey).toBeDefined();
-      expect(res.privateKey.length).toEqual(64);
+      expect(res.privateKey.length).toEqual(66); //'0x'+64
       expect(res.publicKey).toBeDefined();
-      expect(res.publicKey.length).toEqual(130);
-      //console.log(res);
+      expect(res.publicKey.length).toEqual(132); //'0x'+130
+
+      console.log(res);
       done();
     });
   });
