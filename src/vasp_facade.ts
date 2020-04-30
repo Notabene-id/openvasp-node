@@ -29,7 +29,7 @@ export default class VASPFacade {
   }
 
   async getVaspByCode(_code: string): Promise<string> {
-    return await this.facadeArtifact.methods.getVaspByCode().call(_code);
+    return await this.facadeArtifact.methods.getVaspByCode(_code).call();
   }
 
   async build(
