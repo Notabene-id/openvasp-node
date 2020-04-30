@@ -154,7 +154,7 @@ export class OpenVASP {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   handleSessionRequest(cb: any) {
     return async (
-      err: CallbackFunction,
+      err: Error,
       sessionRequest: SessionRequest
     ): Promise<void> => {
       if (!err) {
@@ -193,6 +193,8 @@ export class OpenVASP {
         }
 
         await this.sessionReply(sessionRequest, replyCode, cb);
+      } else {
+        throw err;
       }
       return;
     };

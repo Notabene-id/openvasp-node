@@ -3,6 +3,7 @@ import VASPContract from "./vasp_contract";
 import WhisperTransport from "./whisper";
 import { OpenVASP } from "./openvasp";
 import { SetIntervalAsyncTimer } from "set-interval-async/dynamic";
+import VASPFacade from "./vasp_facade";
 
 export interface VASP {
   address: string;
@@ -42,4 +43,4 @@ export interface WaitId {
   intevalId: SetIntervalAsyncTimer;
 }
 
-export { Tools, VASPContract, WhisperTransport, OpenVASP };
+export { Tools, VASPContract, VASPFacade, WhisperTransport, OpenVASP };
