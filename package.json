@@ -98,10 +98,10 @@
     "@openzeppelin/contract-loader": "^0.6.1",
     "@types/set-interval-async": "^1.0.0",
     "@types/uuid": "^7.0.2",
-    "openvasp-contracts": "^1.0.0-beta.1",
+    "openvasp-contracts": "^1.1.0-beta",
     "set-interval-async": "1.0.32",
     "uuid": "^7.0.3",
-    "web3": "^1.2.6"
+    "web3": "^1.2.7"
   },
   "husky": {
     "hooks": {

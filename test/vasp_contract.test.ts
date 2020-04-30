@@ -1,8 +1,10 @@
 import VASPContract from "../src/vasp_contract";
 
 import { web3, accounts, contract } from "@openzeppelin/test-environment";
+import { provider } from "web3-core";
+
 import { Tools } from "../src";
-const [owner, administrator] = accounts;
+const [owner] = accounts;
 
 /**
  * VASPContract test
@@ -27,13 +29,13 @@ describe("VASPContract test", () => {
   let vaspAddress: string;
 
   beforeAll(async done => {
-    sut = new VASPContract(web3.currentProvider);
+    sut = new VASPContract(web3.currentProvider as provider);
 
     // Deploy demo VASP contracts
     contract.artifactsDir = "./node_modules/openvasp-contracts/build/contracts";
     const VASPMArtifact = contract.fromArtifact("VASP");
     instanceVASPContract = await VASPMArtifact.new();
-    await instanceVASPContract.initialize(owner, [administrator]);
+    await instanceVASPContract.initialize(owner);
     vaspAddress = instanceVASPContract.address;
     done();
   });
@@ -48,7 +50,7 @@ describe("VASPContract test", () => {
   describe("getName", () => {
     beforeAll(async done => {
       await instanceVASPContract.setName(vaspData.name, {
-        from: administrator,
+        from: owner,
       });
       done();
     });
@@ -62,7 +64,7 @@ describe("VASPContract test", () => {
   describe("getChannels", () => {
     beforeAll(async done => {
       await instanceVASPContract.addChannel(parseInt(vaspData.channels[0]), {
-        from: administrator,
+        from: owner,
       });
       done();
     });
@@ -76,7 +78,7 @@ describe("VASPContract test", () => {
   describe("getHandshakeKey", () => {
     beforeAll(async done => {
       await instanceVASPContract.setHandshakeKey(vaspData.handshakeKey, {
-        from: administrator,
+        from: owner,
       });
       done();
     });
@@ -90,7 +92,7 @@ describe("VASPContract test", () => {
   describe("getSigningKey", () => {
     beforeAll(async done => {
       await instanceVASPContract.setSigningKey(vaspData.signingKey, {
-        from: administrator,
+        from: owner,
       });
       done();
     });
