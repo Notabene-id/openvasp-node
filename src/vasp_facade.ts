@@ -18,7 +18,7 @@ export default class VASPFacade {
   constructor(_provider: provider, _address: string) {
     const loader = setupLoader({ provider: new Web3(_provider) }).web3;
     loader.artifactsDir = "./node_modules/openvasp-contracts/build/contracts";
-    this.facadeArtifact = loader.fromArtifact("VASPFacade");
+    this.facadeArtifact = loader.fromArtifact("VaspFacade");
     this.setAddress(_address);
   }
 
