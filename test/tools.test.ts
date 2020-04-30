@@ -40,12 +40,14 @@ describe("Tools", () => {
   });
 
   describe("generateKeyPair", () => {
-    it("should work", () => {
+    it("should work", done => {
       const res = Tools.generateKeyPair();
       expect(res.privateKey).toBeDefined();
       expect(res.privateKey.length).toEqual(64);
       expect(res.publicKey).toBeDefined();
       expect(res.publicKey.length).toEqual(130);
+      //console.log(res);
+      done();
     });
   });
 

@@ -54,8 +54,23 @@ export class OpenVASP {
     const handshakeKeyPublic = Tools.publicFromPrivateKey(
       this.myVASP.handshakeKeyPrivate
     );
-    if (handshakeKeyPublic != myVASPdata.handshakeKey) {
+    if (handshakeKeyPublic != myVASPdata.handshakeKey.replace("0x", "")) {
       errors.push("HandshakeKeyPrivate does not derive HandshakeKey");
+    }
+
+    if (this.myVASP.signingKey != myVASPdata.signingKey) {
+      errors.push("SigningKey are not the same");
+      if (fix) {
+        this.myVASP.signingKey = myVASPdata.signingKey;
+      }
+    }
+
+    //Derive publicKey from privateKey
+    const signingKeyPublic = Tools.publicFromPrivateKey(
+      this.myVASP.signingKeyPrivate
+    );
+    if (signingKeyPublic != myVASPdata.signingKey.replace("0x", "")) {
+      errors.push("SigningKeyPrivate does not derive SigningKey");
     }
 
     return errors;
