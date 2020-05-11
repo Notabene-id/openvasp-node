@@ -1,5 +1,5 @@
-import { v4 as uuidv4 } from "uuid";
-import { PrivateVASP } from ".";
+import * as crypto from "crypto";
+import { VASP } from ".";
 
 interface OpenVASPMessage {
   /** Comment */
@@ -116,14 +116,7 @@ interface TransferRequest extends OpenVASPMessage {
   /** Beneficiary */
   beneficiary: BeneficiaryInformation;
   /** Transfer */
-  transfer: {
-    /** Virtual asset type */
-    va: VirtualAssetType;
-    /** Transfer type */
-    ttype: TransferType;
-    /** Amount. 18 digits */
-    amount: BigInt;
-  };
+  transfer: Transfer;
 }
 
 enum VirtualAssetType {
@@ -133,6 +126,15 @@ enum VirtualAssetType {
 
 enum TransferType {
   BlockchainTransaction = 1,
+}
+
+interface Transfer {
+  /** Virtual asset type */
+  va: VirtualAssetType;
+  /** Transfer type */
+  ttype: TransferType;
+  /** Amount. 18 digits */
+  amount: BigInt;
 }
 
 /**
@@ -476,10 +478,10 @@ interface BeneficiaryInformation {
 }
 
 class MessageFactory {
-  static createSessionRequest(_originatorVASP: PrivateVASP): SessionRequest {
-    const msgid = uuidv4().replace("-", ""); //Hex(128bit);
-    const session = uuidv4().replace("-", ""); //Hex(128bit);
-    const topica = "0x" + uuidv4().substring(0, 8); //Hex(64bit);
+  static createSessionRequest(_originatorVASP: VASP): SessionRequest {
+    const msgid = "0x" + crypto.randomBytes(16).toString("hex"); //Hex(128bit);
+    const session = "0x" + crypto.randomBytes(16).toString("hex"); //Hex(128bit);
+    const topica = "0x" + crypto.randomBytes(4).toString("hex"); //Hex(32bit);
 
     const sessionRequest: SessionRequest = {
       msg: {
@@ -506,10 +508,10 @@ class MessageFactory {
   static createSessionReply(
     session: string,
     code: SessionReplyCode,
-    _beneficiaryVASP: PrivateVASP
+    _beneficiaryVASP: VASP
   ): SessionReply {
-    const msgid = uuidv4().replace("-", ""); //Hex(128bit);
-    const topicb = "0x" + uuidv4().substring(0, 8); //Hex(64bit);
+    const msgid = "0x" + crypto.randomBytes(16).toString("hex"); //Hex(128bit);
+    const topicb = "0x" + crypto.randomBytes(4).toString("hex"); //Hex(32bit);
 
     const sig = "0xfakesig"; //TODO Sign?
 
@@ -534,6 +536,68 @@ class MessageFactory {
 
     return sessionReply;
   }
+
+  static createTransferRequest(
+    session: string,
+    _originatorVASP: VASP,
+    transferData: {
+      originator: OriginatorInformation;
+      beneficiary: BeneficiaryInformation;
+      transfer: Transfer;
+    }
+  ): TransferRequest {
+    const msgid = "0x" + crypto.randomBytes(16).toString("hex"); //Hex(128bit);
+
+    const transferRequest: TransferRequest = {
+      msg: {
+        type: MessageType.TransferRequest,
+        msgid,
+        session,
+        code: "1",
+      },
+      ...transferData,
+      vasp: {
+        name: _originatorVASP.name,
+        id: _originatorVASP.address,
+        pk: _originatorVASP.signingKey,
+        address: _originatorVASP.postalAddress,
+      },
+      sig: "___MSSING___",
+    };
+    return transferRequest;
+  }
+
+  static createTransferReply(
+    _transferRequest: TransferRequest,
+    _beneficiaryVASP: VASP,
+    transferReplyCode: TransferReplyCode,
+    destination?: string
+  ): TransferReply {
+    const msgid = "0x" + crypto.randomBytes(16).toString("hex"); //Hex(128bit);
+
+    const transferReply: TransferReply = {
+      msg: {
+        type: MessageType.TransferReply,
+        msgid,
+        session: _transferRequest.msg.session,
+        code: transferReplyCode,
+      },
+      originator: _transferRequest.originator,
+      beneficiary: _transferRequest.beneficiary,
+      transfer: {
+        ..._transferRequest.transfer,
+        destination,
+      },
+      vasp: {
+        name: _beneficiaryVASP.name,
+        id: _beneficiaryVASP.address,
+        pk: _beneficiaryVASP.signingKey,
+        address: _beneficiaryVASP.postalAddress,
+      },
+      sig: "___MSSING___",
+    };
+    return transferReply;
+  }
 }
 
 export {
@@ -543,8 +607,12 @@ export {
   SessionReplyCode,
   TransferRequest,
   TransferReply,
+  TransferReplyCode,
   TransferDispatch,
   TransferConfirmation,
   Termination,
   MessageFactory,
+  OriginatorInformation,
+  BeneficiaryInformation,
+  Transfer,
 };

@@ -2,8 +2,8 @@ import Tools from "./tools";
 import VASPContract from "./vasp_contract";
 import WhisperTransport from "./whisper";
 import { OpenVASP } from "./openvasp";
-import { SetIntervalAsyncTimer } from "set-interval-async/dynamic";
 import VASPFacade from "./vasp_facade";
+import { MessageType } from "./messages";
 
 export interface VASP {
   address: string;
@@ -38,9 +38,11 @@ export interface CallbackFunction {
   (error: null | Error, message?: string): void | Promise<void>;
 }
 
-export interface WaitId {
-  filterId: string;
-  intevalId: SetIntervalAsyncTimer;
-}
-
-export { Tools, VASPContract, VASPFacade, WhisperTransport, OpenVASP };
+export {
+  Tools,
+  VASPContract,
+  VASPFacade,
+  WhisperTransport,
+  OpenVASP,
+  MessageType,
+};

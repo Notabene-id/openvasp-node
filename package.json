@@ -96,11 +96,12 @@
   },
   "dependencies": {
     "@openzeppelin/contract-loader": "^0.6.1",
+    "@types/debug": "^4.1.5",
     "@types/set-interval-async": "^1.0.0",
-    "@types/uuid": "^7.0.2",
+    "debug": "^4.1.1",
+    "ethereumjs-util": "^7.0.0",
     "openvasp-contracts": "^1.1.0-beta",
     "set-interval-async": "1.0.32",
-    "uuid": "^7.0.3",
     "web3": "^1.2.7"
   },
   "husky": {
