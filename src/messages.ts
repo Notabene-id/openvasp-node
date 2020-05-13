@@ -6,8 +6,6 @@ interface OpenVASPMessage {
   comment?: string;
   /** VASP information incl. public signing key */
   vasp: VASPInformation;
-  /** Message signed with actor’s private signing key */
-  sig: string;
 }
 
 enum MessageType {
@@ -500,7 +498,6 @@ class MessageFactory {
         pk: _originatorVASP.signingKey,
         address: _originatorVASP.postalAddress,
       },
-      sig: "___MSSING___",
     };
     return sessionRequest;
   }
@@ -512,8 +509,6 @@ class MessageFactory {
   ): SessionReply {
     const msgid = "0x" + crypto.randomBytes(16).toString("hex"); //Hex(128bit);
     const topicb = "0x" + crypto.randomBytes(4).toString("hex"); //Hex(32bit);
-
-    const sig = "0xfakesig"; //TODO Sign?
 
     const sessionReply: SessionReply = {
       msg: {
@@ -531,7 +526,6 @@ class MessageFactory {
         pk: _beneficiaryVASP.signingKey,
         address: _beneficiaryVASP.postalAddress,
       },
-      sig,
     };
 
     return sessionReply;
@@ -562,7 +556,6 @@ class MessageFactory {
         pk: _originatorVASP.signingKey,
         address: _originatorVASP.postalAddress,
       },
-      sig: "___MSSING___",
     };
     return transferRequest;
   }
@@ -594,7 +587,6 @@ class MessageFactory {
         pk: _beneficiaryVASP.signingKey,
         address: _beneficiaryVASP.postalAddress,
       },
-      sig: "___MSSING___",
     };
     return transferReply;
   }
