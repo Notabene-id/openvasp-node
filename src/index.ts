@@ -3,7 +3,7 @@ import VASPContract from "./vasp_contract";
 import WhisperTransport from "./whisper";
 import { OpenVASP } from "./openvasp";
 import VASPFacade from "./vasp_facade";
-import { MessageType } from "./messages";
+import { MessageType, TransferReplyCode } from "./messages";
 
 export interface VASP {
   address: string;
@@ -45,4 +45,5 @@ export {
   WhisperTransport,
   OpenVASP,
   MessageType,
+  TransferReplyCode,
 };

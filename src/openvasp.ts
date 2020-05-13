@@ -127,8 +127,7 @@ export class OpenVASP {
     sessionRequest.handshake.ecdhpk = publicKey;
     debug("Originator Ephemereal pubKey (handshake.ecdhpk): %s", publicKey);
 
-    //TODO: Sign message. Sign what?
-    sessionRequest.sig = "??";
+    //TODO: Sign message.
 
     // Listen to session reply
     const topicAwaitId = await this.whisperTransport.waitForTopicMessage(
@@ -377,7 +376,8 @@ export class OpenVASP {
   async transferReply(
     session: { topic: string; sharedKey: string },
     transferRequest: TransferRequest,
-    transferReplyCode: TransferReplyCode
+    transferReplyCode: TransferReplyCode,
+    destination?: string
   ): Promise<TransferReply> {
     const debug = Debug("openvasp-client:openvasp:transferRequest");
 
@@ -385,7 +385,8 @@ export class OpenVASP {
     const transferReply = MessageFactory.createTransferReply(
       transferRequest,
       this.myVASP,
-      transferReplyCode
+      transferReplyCode,
+      destination
     );
 
     //Send to originator topic
@@ -396,8 +397,8 @@ export class OpenVASP {
     );
 
     debug(
-      "TransferRequest: %s, sent to topic: %s",
-      transferRequest.msg.msgid,
+      "TransferReply: %s, sent to topic: %s",
+      transferReply.msg.msgid,
       session.topic
     );
 
