@@ -376,27 +376,31 @@ interface VASPInformation {
     birthcountry: string;
   };
   /** Natural person ID */
-  nat?: {
-    /** Identification type */
-    natid_type: NaturalPersonIdType;
-    /** Identifier */
-    natid: string;
-    /** Issuing country. ISO 3166-1 alpha-2 code */
-    natid_country?: string;
-    /** Non-state issuer */
-    natid_issuer?: string;
-  };
+  nat?: [
+    {
+      /** Identification type */
+      natid_type: NaturalPersonIdType;
+      /** Identifier */
+      natid: string;
+      /** Issuing country. ISO 3166-1 alpha-2 code */
+      natid_country?: string;
+      /** Non-state issuer */
+      natid_issuer?: string;
+    }
+  ];
   /** Juridical person ID */
-  jur?: {
-    /** Identification type */
-    jurid_type: JuridicalPersonIdType;
-    /** Identifier */
-    jurid: string;
-    /** Issuing country. ISO 3166-1 alpha-2 code */
-    jurid_country?: string;
-    /** Non-state issuer */
-    jurid_issuer?: string;
-  };
+  jur?: [
+    {
+      /** Identification type */
+      jurid_type: JuridicalPersonIdType;
+      /** Identifier */
+      jurid: string;
+      /** Issuing country. ISO 3166-1 alpha-2 code */
+      jurid_country?: string;
+      /** Non-state issuer */
+      jurid_issuer?: string;
+    }
+  ];
   /** BIC. ISO 9362 Bank Identifier Code  */
   bic?: string;
 }
@@ -437,27 +441,31 @@ interface OriginatorInformation {
     birthcountry: string;
   };
   /** Natural person ID */
-  nat?: {
-    /** Identification type */
-    natid_type: NaturalPersonIdType;
-    /** Identifier */
-    natid: string;
-    /** Issuing country. ISO 3166-1 alpha-2 code */
-    natid_country?: string;
-    /** Non-state issuer */
-    natid_issuer?: string;
-  };
+  nat?: [
+    {
+      /** Identification type */
+      natid_type: NaturalPersonIdType;
+      /** Identifier */
+      natid: string;
+      /** Issuing country. ISO 3166-1 alpha-2 code */
+      natid_country?: string;
+      /** Non-state issuer */
+      natid_issuer?: string;
+    }
+  ];
   /** Juridical person ID */
-  jur?: {
-    /** Identification type */
-    jurid_type: JuridicalPersonIdType;
-    /** Identifier */
-    jurid: string;
-    /** Issuing country. ISO 3166-1 alpha-2 code */
-    jurid_country?: string;
-    /** Non-state issuer */
-    jurid_issuer?: string;
-  };
+  jur?: [
+    {
+      /** Identification type */
+      jurid_type: JuridicalPersonIdType;
+      /** Identifier */
+      jurid: string;
+      /** Issuing country. ISO 3166-1 alpha-2 code */
+      jurid_country?: string;
+      /** Non-state issuer */
+      jurid_issuer?: string;
+    }
+  ];
   /** BIC. ISO 9362 Bank Identifier Code  */
   bic?: string;
 }
