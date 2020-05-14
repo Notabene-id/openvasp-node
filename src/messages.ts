@@ -252,7 +252,7 @@ interface TransferConfirmation extends OpenVASPMessage {
     /** Session identifier. As set in message 110. Hex(128 bit) */
     session: string;
     /** Message code. */
-    code: TransferConfirmationCodes;
+    code: TransferConfirmationCode;
   };
   /** Originator */
   originator: OriginatorInformation;
@@ -280,7 +280,7 @@ interface TransferConfirmation extends OpenVASPMessage {
   };
 }
 
-enum TransferConfirmationCodes {
+enum TransferConfirmationCode {
   TransferConfirmed = "1",
   TransferNotConfirmedDispatchNotValid = "2",
   TransferNotConfirmedAssetsNotReceived = "3",
@@ -598,6 +598,62 @@ class MessageFactory {
     };
     return transferReply;
   }
+
+  static createTransferDispatch(
+    _transferReply: TransferReply,
+    _originatorVASP: VASP,
+    _tx: { txid?: string; datetime: string; sendingadr?: string }
+  ): TransferDispatch {
+    const msgid = "0x" + crypto.randomBytes(16).toString("hex"); //Hex(128bit);
+
+    const transferDispatch: TransferDispatch = {
+      msg: {
+        type: MessageType.TransferDispatch,
+        msgid,
+        session: _transferReply.msg.session,
+        code: "1",
+      },
+      originator: _transferReply.originator,
+      beneficiary: _transferReply.beneficiary,
+      transfer: _transferReply.transfer,
+      tx: _tx,
+      vasp: {
+        name: _originatorVASP.name,
+        id: _originatorVASP.address,
+        pk: _originatorVASP.signingKey,
+        address: _originatorVASP.postalAddress,
+      },
+    };
+    return transferDispatch;
+  }
+
+  static createTransferConfirmation(
+    _transferDispatch: TransferDispatch,
+    _beneficiaryVASP: VASP,
+    transferConfirmationCode: TransferConfirmationCode
+  ): TransferConfirmation {
+    const msgid = "0x" + crypto.randomBytes(16).toString("hex"); //Hex(128bit);
+
+    const transferConfirmation: TransferConfirmation = {
+      msg: {
+        type: MessageType.TransferConfirmation,
+        msgid,
+        session: _transferDispatch.msg.session,
+        code: transferConfirmationCode,
+      },
+      originator: _transferDispatch.originator,
+      beneficiary: _transferDispatch.beneficiary,
+      transfer: _transferDispatch.transfer,
+      tx: _transferDispatch.tx,
+      vasp: {
+        name: _beneficiaryVASP.name,
+        id: _beneficiaryVASP.address,
+        pk: _beneficiaryVASP.signingKey,
+        address: _beneficiaryVASP.postalAddress,
+      },
+    };
+    return transferConfirmation;
+  }
 }
 
 export {
@@ -610,6 +666,7 @@ export {
   TransferReplyCode,
   TransferDispatch,
   TransferConfirmation,
+  TransferConfirmationCode,
   Termination,
   MessageFactory,
   OriginatorInformation,

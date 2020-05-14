@@ -18,6 +18,9 @@ import {
   Transfer,
   TransferReply,
   TransferReplyCode,
+  TransferDispatch,
+  TransferConfirmation,
+  TransferConfirmationCode,
 } from "./messages";
 
 export class OpenVASP {
@@ -379,7 +382,7 @@ export class OpenVASP {
     transferReplyCode: TransferReplyCode,
     destination?: string
   ): Promise<TransferReply> {
-    const debug = Debug("openvasp-client:openvasp:transferRequest");
+    const debug = Debug("openvasp-client:openvasp:transferReply");
 
     //Reply Msg
     const transferReply = MessageFactory.createTransferReply(
@@ -403,6 +406,77 @@ export class OpenVASP {
     );
 
     return transferReply;
+  }
+
+  /**
+   * Send a Transfer Dispatch Message
+   *
+   * @param session Session data
+   * @param transferReply Transfer Reply Data
+   * @param txData Tx Data
+   */
+  async transferDispatch(
+    session: { id: string; topic: string; sharedKey: string },
+    transferReply: TransferReply,
+    txData: {
+      txid?: string | undefined;
+      datetime: string;
+      sendingadr?: string | undefined;
+    }
+  ): Promise<TransferDispatch> {
+    const debug = Debug("openvasp-client:openvasp:transferDispatch");
+
+    //Dispatch Msg
+    const transferDispatch = MessageFactory.createTransferDispatch(
+      transferReply,
+      this.myVASP,
+      txData
+    );
+
+    //Send to originator topic
+    await this.whisperTransport.sendToTopic(
+      session.topic,
+      session.sharedKey,
+      JSON.stringify(transferDispatch)
+    );
+
+    debug(
+      "TransferDispatch: %s, sent to topic: %s",
+      transferDispatch.msg.msgid,
+      session.topic
+    );
+
+    return transferDispatch;
+  }
+
+  async transferConfirmation(
+    session: { topic: string; sharedKey: string },
+    transferDispatch: TransferDispatch,
+    transferConfirmationCode: TransferConfirmationCode
+  ): Promise<TransferConfirmation> {
+    const debug = Debug("openvasp-client:openvasp:transferConfirmation");
+
+    //Confirmation Msg
+    const transferConfirmation = MessageFactory.createTransferConfirmation(
+      transferDispatch,
+      this.myVASP,
+      transferConfirmationCode
+    );
+
+    //Send to originator topic
+    await this.whisperTransport.sendToTopic(
+      session.topic,
+      session.sharedKey,
+      JSON.stringify(transferConfirmation)
+    );
+
+    debug(
+      "TransferConfirmation: %s, sent to topic: %s",
+      transferConfirmation.msg.msgid,
+      session.topic
+    );
+
+    return transferConfirmation;
   }
 
   /**
