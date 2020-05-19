@@ -73,7 +73,6 @@ describe("WhisperTransport test", () => {
         country: "CL",
       },
     },
-    sig: "0xfakesig",
   };
 
   beforeAll(() => {
