@@ -1,27 +1,32 @@
-import { VASP } from ".";
-import Tools from "./tools";
 import Web3 from "web3";
 import { provider } from "web3-core";
 
 import { setupLoader } from "@openzeppelin/contract-loader";
 
-interface PostalAddress {
-  streetName: string;
-  buildingNumber: string;
-  addressLine: string;
-  postCode: string;
-  town: string;
-  country: string;
-}
+/**
+ * VASP data that is stored on the VASP contract
+ */
+export type VASPContractData = {
+  /** Address of the contract */
+  address?: string;
+  /** Owner of the contract (address) */
+  owner?: string;
+  /** Handshake key */
+  handshakeKey?: string;
+  /** Signing key */
+  signingKey?: string;
+};
 
 export default class VASPContract {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   private contractArtifact: any;
 
-  constructor(_provider: provider) {
-    const loader = setupLoader({ provider: new Web3(_provider) }).web3;
-    loader.artifactsDir = "./node_modules/openvasp-contracts/build/contracts";
-    this.contractArtifact = loader.fromArtifact("VASP");
+  constructor(_provider: provider, defaultSender?: string) {
+    const provider = new Web3(_provider);
+    const loader = setupLoader({ provider, defaultSender });
+    loader.web3.artifactsDir =
+      "./node_modules/openvasp-contracts/build/contracts";
+    this.contractArtifact = loader.web3.fromArtifact("VASP");
   }
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -30,90 +35,41 @@ export default class VASPContract {
     return this.contractArtifact;
   }
 
-  async getAllFields(_address: string): Promise<VASP> {
+  async getAllFields(_address: string): Promise<VASPContractData> {
     //TODO: I think all the queries can be done in parallel (Promise.all())
-    const owner = await this.getOwner(_address);
-    const name = await this.getName(_address);
-    const channels = await this.getChannels(_address);
     const handshakeKey = await this.getHandshakeKey(_address);
-    const postalAddress: PostalAddress = await this.getPostalAddress(_address);
     const signingKey = await this.getSigningKey(_address);
 
     return {
       address: _address,
-      code: Tools.addressToVaspCode(_address),
-      owner,
-      name,
-      channels,
       handshakeKey,
       signingKey,
-      postalAddress: {
-        street: postalAddress.streetName || undefined,
-        number: postalAddress.buildingNumber || undefined,
-        adrline: postalAddress.addressLine || undefined,
-        postcode: postalAddress.postCode,
-        town: postalAddress.town,
-        country: postalAddress.country,
-      },
     };
   }
 
-  async getOwner(_address: string): Promise<string> {
-    const VASPContract = this.getVASPContractInstance(_address);
-    return await VASPContract.methods.owner().call();
-  }
-
-  async getName(_address: string): Promise<string> {
-    const VASPContract = this.getVASPContractInstance(_address);
-    return await VASPContract.methods.name().call();
-  }
-
-  async getChannels(_address: string): Promise<Array<string>> {
-    const VASPContract = this.getVASPContractInstance(_address);
-    return await VASPContract.methods
-      .channels(0, await VASPContract.methods.channelsCount().call())
-      .call();
-  }
-
   async getHandshakeKey(_address: string): Promise<string> {
-    const VASPContract = this.getVASPContractInstance(_address);
-    return await VASPContract.methods.handshakeKey().call();
+    const vaspContractInstance = this.getVASPContractInstance(_address);
+    return await vaspContractInstance.methods.handshakeKey().call();
   }
 
   async getSigningKey(_address: string): Promise<string> {
-    const VASPContract = this.getVASPContractInstance(_address);
-    return await VASPContract.methods.signingKey().call();
+    const vaspContractInstance = this.getVASPContractInstance(_address);
+    return await vaspContractInstance.methods.signingKey().call();
   }
 
-  async getPostalAddress(_address: string): Promise<PostalAddress> {
-    const VASPContract = this.getVASPContractInstance(_address);
-    return await VASPContract.methods.postalAddress().call();
+  async setHandshakeKey(
+    _address: string,
+    _handshakeKey: string
+  ): Promise<void> {
+    const vaspContractInstance = this.getVASPContractInstance(_address);
+    console.log(vaspContractInstance.methods.setHandshakeKey);
+    await vaspContractInstance.methods.setHandshakeKey(_handshakeKey).send();
+    return;
   }
 
-  async getEmail(_address: string): Promise<string> {
-    const VASPContract = this.getVASPContractInstance(_address);
-    return await VASPContract.methods.email().call();
-  }
-
-  async getWebsite(_address: string): Promise<string> {
-    const VASPContract = this.getVASPContractInstance(_address);
-    return await VASPContract.methods.website().call();
-  }
-
-  async getTrustedPeers(_address: string): Promise<Array<string>> {
-    const VASPContract = this.getVASPContractInstance(_address);
-    return await VASPContract.methods
-      .trustedPeers(0, await VASPContract.methods.trustedPeersCount().call())
-      .call();
-  }
-
-  async getIdentityClaims(_address: string): Promise<Array<string>> {
-    const VASPContract = this.getVASPContractInstance(_address);
-    return await VASPContract.methods
-      .identityClaims(
-        0,
-        await VASPContract.methods.identityClaimsCount().call()
-      )
-      .call();
+  async setSigningKey(_address: string, _signingKey: string): Promise<void> {
+    const vaspContractInstance = this.getVASPContractInstance(_address);
+    await vaspContractInstance.methods.setSigningKey(_signingKey).send();
+    return;
   }
 }

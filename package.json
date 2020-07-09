@@ -101,7 +101,7 @@
     "@types/set-interval-async": "^1.0.0",
     "debug": "^4.1.1",
     "ethereumjs-util": "^7.0.0",
-    "openvasp-contracts": "^1.1.0-beta",
+    "openvasp-contracts": "^2.0.0-rc",
     "set-interval-async": "1.0.32",
     "web3": "^1.2.7"
   },
