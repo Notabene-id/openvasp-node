@@ -17,13 +17,22 @@ export type VASPContractData = {
   signingKey?: string;
 };
 
+/**
+ * Access to VASPContract Information
+ */
 export default class VASPContract {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   private contractArtifact: any;
 
-  constructor(_provider: provider, defaultSender?: string) {
+  /**
+   * Creates an VASPContract
+   *
+   * @param _provider Web3Provider
+   * @param _defaultSender default "from"
+   */
+  constructor(_provider: provider, _defaultSender?: string) {
     const provider = new Web3(_provider);
-    const loader = setupLoader({ provider, defaultSender });
+    const loader = setupLoader({ provider, defaultSender: _defaultSender });
     loader.web3.artifactsDir =
       "./node_modules/openvasp-contracts/build/contracts";
     this.contractArtifact = loader.web3.fromArtifact("VASP");
@@ -35,6 +44,11 @@ export default class VASPContract {
     return this.contractArtifact;
   }
 
+  /**
+   * Get all public fields from the contract
+   *
+   * @param _address VASP contract address
+   */
   async getAllFields(_address: string): Promise<VASPContractData> {
     //TODO: I think all the queries can be done in parallel (Promise.all())
     const handshakeKey = await this.getHandshakeKey(_address);
@@ -47,26 +61,39 @@ export default class VASPContract {
     };
   }
 
+  /**
+   * @param _address VASP contract address
+   */
   async getHandshakeKey(_address: string): Promise<string> {
     const vaspContractInstance = this.getVASPContractInstance(_address);
     return await vaspContractInstance.methods.handshakeKey().call();
   }
 
+  /**
+   * @param _address VASP contract address
+   */
   async getSigningKey(_address: string): Promise<string> {
     const vaspContractInstance = this.getVASPContractInstance(_address);
     return await vaspContractInstance.methods.signingKey().call();
   }
 
+  /**
+   * @param _address VASP contract address
+   * @param _handshakeKey handshakeKey string
+   */
   async setHandshakeKey(
     _address: string,
     _handshakeKey: string
   ): Promise<void> {
     const vaspContractInstance = this.getVASPContractInstance(_address);
-    console.log(vaspContractInstance.methods.setHandshakeKey);
     await vaspContractInstance.methods.setHandshakeKey(_handshakeKey).send();
     return;
   }
 
+  /**
+   * @param _address VASP contract address
+   * @param _signingKey signingKey string
+   */
   async setSigningKey(_address: string, _signingKey: string): Promise<void> {
     const vaspContractInstance = this.getVASPContractInstance(_address);
     await vaspContractInstance.methods.setSigningKey(_signingKey).send();

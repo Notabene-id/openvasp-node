@@ -2,7 +2,7 @@ import Tools from "./tools";
 import VASPContract from "./vasp_contract";
 import WhisperTransport from "./whisper";
 import { OpenVASP } from "./openvasp";
-import VASPFacade from "./vasp_facade";
+import VASPFacade from "./vasp_index_contract";
 import {
   MessageType,
   TransferReplyCode,
