@@ -3,6 +3,11 @@ import { randomBytes } from "crypto";
 import { ecsign, hashPersonalMessage, toRpcSig } from "ethereumjs-util";
 import Web3 from "web3";
 
+export type KeyPair = {
+  publicKey: string;
+  privateKey: string;
+};
+
 export default class Tools {
   /**
    * Converts VASP Smart Contract addres to code.
@@ -41,7 +46,7 @@ export default class Tools {
    * Generate public and private key
    *
    */
-  static generateKeyPair(): { publicKey: string; privateKey: string } {
+  static generateKeyPair(): KeyPair {
     let privKey;
     do {
       privKey = randomBytes(32);

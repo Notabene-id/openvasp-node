@@ -1,28 +1,37 @@
 import VASPIndexContract from "./vasp_index_contract";
 import VASPContract from "./vasp_contract";
-import Tools from "./tools";
+import Tools, { KeyPair } from "./tools";
 
 import { provider } from "web3-core";
 
+/** VASP Code already exists in VASPIndex */
 export class VASPCodeConflictError extends Error {}
 
+/** Return of VASP creation */
 export type CreateVASPReturn = {
+  /** Address of deployed VASP contract*/
   vaspAddress: string;
-  handshakeKeys: {
-    privateKey: string;
-    publicKey: string;
-  };
-  signingKeys: {
-    privateKey: string;
-    publicKey: string;
-  };
+  /** Handshake Keys */
+  handshakeKeys: KeyPair;
+  /** Signing Keys */
+  signingKeys: KeyPair;
 };
 
+/**
+ * Creates VASP contracts thru VASPIndex and sets the
+ * handshake and signing keys
+ */
 export default class VASPFactory {
   private vaspIndexContract: VASPIndexContract;
   private vaspOwner: string;
   private provider: provider;
 
+  /**
+   *
+   * @param _provider Web3 Provider (signing capabilities needed for creating VASP contracts)
+   * @param _address Address of the VASPFacade contract
+   * @param _defaultSender default "from"
+   */
   constructor(_provider: provider, _address: string, _defaultSender: string) {
     this.provider = _provider;
     this.vaspOwner = _defaultSender;
@@ -33,6 +42,11 @@ export default class VASPFactory {
     );
   }
 
+  /**
+   * Creates a VASP contract, generates keys and store them on the contract
+   *
+   * @param _vaspCode Desired VASP code
+   */
   async createVASP(_vaspCode: string): Promise<CreateVASPReturn> {
     //Check if _vaspCode exists
     let vaspAddress = await this.vaspIndexContract.getVASPAddressByCode(
