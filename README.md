@@ -20,6 +20,44 @@ $ npm i --save openvasp-client
 
 ## Usage
 
+### Create a VASP Contract
+
+A VASPCode with the corresponding VASP contract (to store the handshake and signing keys) needs to be created to use OpenVASP.
+
+To create a VASPCode and Contract:
+
+```javascript
+import { VASPFactory, Tools } from "openvasp-client";
+
+//Create a random VASP Code
+const vaspCode = Tools.randomVASPCode();
+
+//Initialize VASP Factory
+cont vaspFactory = new VASPFactory({
+    rpcUrl: process.env.NODE_URL. // "https://rinkeby.infura.io/",
+    privateKey: process.env.PRIVATE_KEY, //0x....
+    vaspIndexAddress: process.env.VASP_INDEX_ADDRESS //0x....
+})
+
+//Create VASP
+const ret = vaspFactory.createVASP(vaspCode);
+
+/*
+ ret = {
+  vaspAddress: "0x...", // Address of deployed VASP contract
+  handshakeKeys: { //Handshake Keys
+      privateKey: "0x...",
+      publicKey : "0x...",
+  }
+  signingKeys:{ // Signing Keys
+      privateKey: "0x...",
+      publicKey : "0x...",
+  }
+ }
+ */
+
+```
+
 ### Tool
 
 ```javascript

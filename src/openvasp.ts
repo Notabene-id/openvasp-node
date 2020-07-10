@@ -55,7 +55,7 @@ export class OpenVASP {
     if (this.myVASP.handshakeKey != myVASPdata.handshakeKey) {
       errors.push("Handshakey are not the same");
       if (fix) {
-        this.myVASP.handshakeKey = myVASPdata.handshakeKey;
+        //this.myVASP.handshakeKey = myVASPdata.handshakeKey;
       }
     }
 
@@ -72,7 +72,7 @@ export class OpenVASP {
     if (this.myVASP.signingKey != myVASPdata.signingKey) {
       errors.push("SigningKey are not the same");
       if (fix) {
-        this.myVASP.signingKey = myVASPdata.signingKey;
+        //this.myVASP.signingKey = myVASPdata.signingKey;
       }
     }
 
@@ -121,7 +121,7 @@ export class OpenVASP {
 
     //Create ECDH Shared key
     const sharedKey = Tools.deriveSharedKey(
-      benificiaryVASP.handshakeKey,
+      "", //benificiaryVASP.handshakeKey,
       privateKey
     );
     debug("sharedKey: %s", sharedKey);
@@ -145,6 +145,7 @@ export class OpenVASP {
     debug("topicAwaitId: %s", topicAwaitId);
 
     //Send Request
+    /*
     await this.whisperTransport.sendSessionRequest(
       benificiaryVASP,
       sessionRequest
@@ -155,6 +156,7 @@ export class OpenVASP {
       benificiaryVASP.code,
       benificiaryVASP.name
     );
+    */
 
     return { sessionRequest, topicAwaitId, sharedKey };
   }

@@ -2,6 +2,7 @@ import VASPFactory, { VASPCodeConflictError } from "../src/vasp_factory";
 
 import { web3, accounts, contract } from "@openzeppelin/test-environment";
 import { provider } from "web3-core";
+import Tools from "../src/tools";
 
 const [owner] = accounts;
 
@@ -22,12 +23,37 @@ describe("VASPFactory test", () => {
     const VASPIndexArtifact = contract.fromArtifact("VASPIndex");
     instanceVASPIndexContract = await VASPIndexArtifact.new();
     const vaspIndexAddress = instanceVASPIndexContract.address;
-    sut = new VASPFactory(
-      web3.currentProvider as provider,
+    const options = {
+      provider: web3.currentProvider as provider,
+      defaultSender: owner,
       vaspIndexAddress,
-      owner
-    );
+      vaspOwner: owner,
+    };
+    sut = new VASPFactory(options);
     done();
+  });
+
+  it("should create a provider with rpcUrl and privKey", () => {
+    const options = {
+      vaspIndexAddress: "0xd7d2852De4B15aBe9e4FeaDA798C466fdb228d6E",
+      rpcUrl: "https://rinkeby.infura.io/",
+      privateKey: Tools.generateKeyPair().privateKey.replace("0x", ""),
+    };
+    const vf = new VASPFactory(options);
+    expect(vf).toBeDefined();
+  });
+
+  it("should fail if no provider", () => {
+    const options = {
+      vaspIndexAddress: "0x",
+    };
+    try {
+      new VASPFactory(options);
+      fail();
+    } catch (err) {
+      expect(err).toBeDefined();
+      expect(err.message).toEqual("unable to create a web3 provider");
+    }
   });
 
   describe("createVASP", () => {
@@ -49,6 +75,24 @@ describe("VASPFactory test", () => {
         expect(err).toBeDefined();
         expect(err).toBeInstanceOf(VASPCodeConflictError);
       }
+    });
+
+    it("should create a VASP (no vaspOwner)", async () => {
+      const vaspIndexAddress = instanceVASPIndexContract.address;
+      const options = {
+        provider: web3.currentProvider as provider,
+        defaultSender: owner,
+        vaspIndexAddress,
+      };
+      const vf = new VASPFactory(options);
+      const vaspCode = "0x0123456789abcdee";
+      const ret = await vf.createVASP(vaspCode);
+      expect(ret.vaspAddress).toBeDefined();
+      expect(ret.handshakeKeys).toBeDefined();
+      expect(ret.handshakeKeys.publicKey).toBeDefined();
+      expect(ret.handshakeKeys.privateKey).toBeDefined();
+      expect(ret.signingKeys.publicKey).toBeDefined();
+      expect(ret.signingKeys.privateKey).toBeDefined();
     });
   });
 });

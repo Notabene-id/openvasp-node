@@ -1,4 +1,5 @@
 import Web3 from "web3";
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { provider } from "web3-core";
 
 import { setupLoader } from "@openzeppelin/contract-loader";

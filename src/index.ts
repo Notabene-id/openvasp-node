@@ -2,12 +2,13 @@ import Tools from "./tools";
 import VASPContract from "./vasp_contract";
 import WhisperTransport from "./whisper";
 import { OpenVASP } from "./openvasp";
-import VASPFacade from "./vasp_index_contract";
+import VASPIndexContract from "./vasp_index_contract";
 import {
   MessageType,
   TransferReplyCode,
   TransferConfirmationCode,
 } from "./messages";
+import VASPFactory from "./vasp_factory";
 
 export interface VASP {
   address: string;
@@ -45,7 +46,8 @@ export interface CallbackFunction {
 export {
   Tools,
   VASPContract,
-  VASPFacade,
+  VASPIndexContract,
+  VASPFactory,
   WhisperTransport,
   OpenVASP,
   MessageType,

@@ -2,7 +2,10 @@ import VASPIndexContract from "./vasp_index_contract";
 import VASPContract from "./vasp_contract";
 import Tools, { KeyPair } from "./tools";
 
+import PrivateKeyProvider from "truffle-privatekey-provider";
+
 import { provider } from "web3-core";
+import Web3 from "web3";
 
 /** VASP Code already exists in VASPIndex */
 export class VASPCodeConflictError extends Error {}
@@ -17,28 +20,48 @@ export type CreateVASPReturn = {
   signingKeys: KeyPair;
 };
 
+export type VASPFactoryOptions = {
+  provider?: provider;
+  defaultSender?: string;
+  rpcUrl?: string;
+  privateKey?: string;
+  vaspIndexAddress: string;
+  vaspOwner?: string;
+};
+
 /**
  * Creates VASP contracts thru VASPIndex and sets the
  * handshake and signing keys
  */
 export default class VASPFactory {
+  private web3Provider: provider;
   private vaspIndexContract: VASPIndexContract;
-  private vaspOwner: string;
-  private provider: provider;
+  private vaspOwner?: string;
 
   /**
    *
-   * @param _provider Web3 Provider (signing capabilities needed for creating VASP contracts)
-   * @param _address Address of the VASPFacade contract
-   * @param _defaultSender default "from"
+   * @param options
    */
-  constructor(_provider: provider, _address: string, _defaultSender: string) {
-    this.provider = _provider;
-    this.vaspOwner = _defaultSender;
+  constructor(options: VASPFactoryOptions) {
+    if (options.provider) {
+      this.web3Provider = options.provider;
+    } else if (options.rpcUrl && options.privateKey) {
+      //PrivateKeyProvider
+      this.web3Provider = new PrivateKeyProvider(
+        options.privateKey,
+        options.rpcUrl
+      );
+    } else {
+      throw new Error("unable to create a web3 provider");
+    }
+
+    this.vaspOwner = options.vaspOwner;
+
+    //Init VASPIndexContract
     this.vaspIndexContract = new VASPIndexContract(
-      _provider,
-      _address,
-      _defaultSender
+      this.web3Provider,
+      options.vaspIndexAddress,
+      options.defaultSender
     );
   }
 
@@ -58,7 +81,11 @@ export default class VASPFactory {
       );
     }
 
-    const owner = this.vaspOwner;
+    //Define VASP Contract Owner
+    const owner = this.vaspOwner
+      ? this.vaspOwner
+      : (await new Web3(this.web3Provider).eth.personal.getAccounts())[0];
+
     //Create VASP Contract
     await this.vaspIndexContract.createVASPContract(owner, _vaspCode);
 
@@ -70,7 +97,7 @@ export default class VASPFactory {
     const signingKeys = Tools.generateKeyPair();
 
     //Store keys in contract
-    const vaspContract = new VASPContract(this.provider, this.vaspOwner);
+    const vaspContract = new VASPContract(this.web3Provider, owner);
     await vaspContract.setHandshakeKey(vaspAddress, handshakeKeys.publicKey);
     await vaspContract.setSigningKey(vaspAddress, signingKeys.publicKey);
 
