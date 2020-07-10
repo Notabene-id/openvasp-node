@@ -33,7 +33,11 @@ describe("VASPContract test", () => {
 
   describe("setHandshakeKey", () => {
     it("should set the handshakeKey", async () => {
-      await sut.setHandshakeKey(vaspAddress, vaspData.handshakeKey);
+      const tx = await sut.setHandshakeKey(vaspAddress, vaspData.handshakeKey);
+      expect(tx.events.HandshakeKeySet).toBeDefined();
+      expect(tx.events.HandshakeKeySet.returnValues.handshakeKey).toEqual(
+        vaspData.handshakeKey
+      );
       const hsKey = await instanceVASPContract.handshakeKey();
       expect(hsKey).toEqual(vaspData.handshakeKey);
     });
@@ -55,7 +59,12 @@ describe("VASPContract test", () => {
 
   describe("setSigningKey", () => {
     it("should set the signingKey", async () => {
-      await sut.setSigningKey(vaspAddress, vaspData.signingKey);
+      const tx = await sut.setSigningKey(vaspAddress, vaspData.signingKey);
+      expect(tx.events.SigningKeySet).toBeDefined();
+      expect(tx.events.SigningKeySet.returnValues.signingKey).toEqual(
+        vaspData.signingKey
+      );
+
       const sKey = await instanceVASPContract.signingKey();
       expect(sKey).toEqual(vaspData.signingKey);
     });

@@ -84,19 +84,25 @@ export default class VASPContract {
   async setHandshakeKey(
     _address: string,
     _handshakeKey: string
-  ): Promise<void> {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  ): Promise<any> {
     const vaspContractInstance = this.getVASPContractInstance(_address);
-    await vaspContractInstance.methods.setHandshakeKey(_handshakeKey).send();
-    return;
+    const res = await vaspContractInstance.methods
+      .setHandshakeKey(_handshakeKey)
+      .send();
+    return res;
   }
 
   /**
    * @param _address VASP contract address
    * @param _signingKey signingKey string
    */
-  async setSigningKey(_address: string, _signingKey: string): Promise<void> {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  async setSigningKey(_address: string, _signingKey: string): Promise<any> {
     const vaspContractInstance = this.getVASPContractInstance(_address);
-    await vaspContractInstance.methods.setSigningKey(_signingKey).send();
-    return;
+    const res = await vaspContractInstance.methods
+      .setSigningKey(_signingKey)
+      .send();
+    return res;
   }
 }
