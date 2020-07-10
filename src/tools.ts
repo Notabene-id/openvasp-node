@@ -126,4 +126,9 @@ export default class Tools {
     const sig = web3.eth.accounts.sign(_msg, _privKey);
     return sig.signature;
   }
+
+  static randomVASPCode(): string {
+    const vaspCode = randomBytes(8);
+    return "0x" + Buffer.from(vaspCode).toString("hex");
+  }
 }

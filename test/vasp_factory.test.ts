@@ -12,7 +12,7 @@ const [owner] = accounts;
 describe("VASPFactory test", () => {
   let sut: VASPFactory;
 
-  const vaspCode = "0x0123456789abcdef";
+  const vaspCode = Tools.randomVASPCode();
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   let instanceVASPIndexContract: any;
@@ -85,7 +85,7 @@ describe("VASPFactory test", () => {
         vaspIndexAddress,
       };
       const vf = new VASPFactory(options);
-      const vaspCode = "0x0123456789abcdee";
+      const vaspCode = Tools.randomVASPCode();
       const ret = await vf.createVASP(vaspCode);
       expect(ret.vaspAddress).toBeDefined();
       expect(ret.handshakeKeys).toBeDefined();

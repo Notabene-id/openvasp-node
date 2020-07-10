@@ -88,4 +88,14 @@ describe("Tools", () => {
       expect(sigWeb3).toEqual("0x" + signature);
     });
   });
+
+  describe("randomVASPCode", () => {
+    it("should create a code", () => {
+      const vaspCode = Tools.randomVASPCode();
+      expect(vaspCode).toBeDefined();
+      expect(vaspCode.length).toEqual(18);
+      expect(vaspCode.substring(0, 2)).toEqual("0x");
+      console.log("VASP CODE: " + vaspCode);
+    });
+  });
 });
